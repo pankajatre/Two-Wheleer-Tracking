@@ -1,0 +1,42 @@
+table '03 Paid Service'
+	lineageTag: 7afe6db1-7f24-4d56-816a-316e2a18451a
+
+	measure 'Paid Service' = CALCULATE([Total Service],'Fact Service Raw'[Service_Type] = "Paid")
+		formatString: 0
+		lineageTag: 41748779-06c4-4a19-96f2-af7acb765ca4
+
+		changedProperty = IsHidden
+
+	measure 'Paid Service%' = DIVIDE([Paid Service],[Total Service])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 5c86364d-2ab2-4a9f-b87f-8299144d29ee
+
+		changedProperty = IsHidden
+
+	measure 'YTD Paid Service' = TOTALYTD('03 Paid Service'[Paid Service],Dim_Date[Date],"31/3")
+		formatString: 0
+		lineageTag: 3aaa07cf-1f37-42a9-9d32-feb73b47927c
+
+	measure 'LYTD Paid Service' = CALCULATE([YTD Paid Service], SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: 3f05a36b-879d-46e3-9bf7-ed20a890debe
+
+	measure 'Growth YTD Paid Service' = DIVIDE([YTD Paid Service],[LYTD Paid Service])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 282c43bc-42e9-44c1-ac5b-b4affde6b7dc
+
+	partition '03 Paid Service' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

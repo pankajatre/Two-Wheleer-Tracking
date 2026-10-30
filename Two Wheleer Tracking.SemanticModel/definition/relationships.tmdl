@@ -1,0 +1,116 @@
+relationship 1912b1eb-8174-4704-ad13-e0671e3825b8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Service Raw'.Job_Card_Created_Date
+	toColumn: LocalDateTable_824b82de-6aa6-4c5d-8592-692141ba3061.Date
+
+relationship AutoDetected_569c135f-cf3a-4ba3-9f6f-5498b4610fba
+	fromColumn: 'Fact Service Raw'.Model_Name
+	toColumn: 'Dim Model'.Model_Name
+
+relationship AutoDetected_264f43df-a1e3-4a2d-aa03-d9bc229c2360
+	fromColumn: 'Fact Sales Org Input'.Model_Name
+	toColumn: 'Dim Model'.Model_Name
+
+relationship 5f570b8c-934a-4c2c-b4b8-df34295e642a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_AMC_EW_Master.Frame_Sale_Date
+	toColumn: LocalDateTable_6a356756-bd1d-423e-9c58-81c79c72cb97.Date
+
+relationship 32cf0230-a5d4-4f85-a3f4-5c76e7c06a60
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_AMC_EW_Master.Order_Submit_Date
+	toColumn: LocalDateTable_6bbbe599-0bfb-4ffa-8f95-fe645ad50335.Date
+
+relationship 5f6133bd-f6aa-40c0-8e0d-0382f741d492
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_AMC_EW_Master.Order_Date
+	toColumn: LocalDateTable_35a0cab6-3a5d-4b7b-b1ba-f75837829d62.Date
+
+relationship AutoDetected_b256d0a7-c69a-449a-9be0-967de02bf5d8
+	fromColumn: Fact_AMC_EW_Master.Model_Name
+	toColumn: 'Dim Model'.Model_Name
+
+relationship AutoDetected_283dd3e8-d837-4c8a-b094-a636f8d09c83
+	fromColumn: Fact_Honda_Enquiry.Model_Name
+	toColumn: 'Dim Model'.Model_Name
+
+relationship AutoDetected_cebc69d0-1ee5-40ad-afe9-cfbc0accc4a6
+	fromColumn: 'Fact Service Raw'.Network_Code
+	toColumn: 'Dim Location'.Network_Code
+
+relationship AutoDetected_c51c401a-ede8-43d3-9f26-ced633688cdb
+	fromColumn: Fact_AMC_EW_Master.Network_Code
+	toColumn: 'Dim Location'.Network_Code
+
+relationship AutoDetected_5d9f2be3-8890-472c-9770-57b9dba741aa
+	fromColumn: 'Fact Service Raw'.Service_Type
+	toColumn: 'Dim Service Type'.Service_Type
+
+relationship 33e09081-464a-5129-82e8-ad9a3ac088e1
+	fromColumn: 'Fact Sales Org Input'.Colony
+	toColumn: Indore_Ward.Locality_Area
+
+relationship AutoDetected_73b5a07e-f2ba-4d9a-8daf-9a469383d69b
+	fromColumn: 'Fact Sales Org Input'.Assigned_To_DSE_Name
+	toColumn: 'Sales Location'.Assigned_To_DSE_Name
+
+relationship AutoDetected_e7312a6d-0df7-4886-8569-4f47748e91df
+	fromColumn: 'Fact Sales Org Input'.Hypothecation
+	toColumn: Hypothication.Hypothecation
+
+relationship 2b91cdaa-00e4-d20a-1059-f8f927ed92b1
+	fromColumn: 'Fact Sales Org Input'.Invoice_Date
+	toColumn: Dim_Date.Date
+
+relationship 4888d146-79e6-a138-b3ca-e1aa11a2d833
+	fromColumn: 'Fact Service Raw'.Job_Card_Closed_Date
+	toColumn: Dim_Date.Date
+
+relationship 731097cd-4cdc-3b21-281d-ae0b942ab5bd
+	fromColumn: Fact_AMC_EW_Master.'Order_Date - Copy'
+	toColumn: Dim_Date.Date
+
+relationship c95129b5-af96-9dfb-b3e6-7452ba719e88
+	fromColumn: Fact_Honda_Enquiry.Enquiry_Created_Date
+	toColumn: Dim_Date.Date
+
+relationship 8c7e07aa-fda7-43bb-8734-fe54cc181998
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Chassis'.'First Service Date'
+	toColumn: LocalDateTable_95101315-61e4-419d-872c-37dd4c1a1fed.Date
+
+relationship 431bac40-cb4e-4969-b933-e439a075a9f0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Chassis'.'Last Service Date'
+	toColumn: LocalDateTable_54a831a3-022d-4cf0-a74d-47cdd3b5b27a.Date
+
+relationship bdb9a5f8-0aeb-4246-b955-055bd1d77073
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Chassis'.Invoice_Date
+	toColumn: LocalDateTable_7b7be6a4-8466-444f-9a46-4eaae287eb2f.Date
+
+relationship 243b9227-2874-4175-a060-5211c7f9da1c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Chassis'.'First System Login Date'
+	toColumn: LocalDateTable_a277f9a3-c665-48ae-99d4-d83af00bfdc9.Date
+
+relationship c39a649c-b60f-01a1-ef26-127e8db61d8b
+	fromColumn: 'Dim Chassis'.'Final Model'
+	toColumn: 'Dim Model'.Model_Name
+
+relationship d034e266-d58d-7e82-d2a3-7264a494a820
+	fromColumn: 'Dim Chassis'.Assigned_To_DSE_Name
+	toColumn: 'Sales Location'.Assigned_To_DSE_Name
+
+relationship AutoDetected_93910188-7fc6-449a-be7b-e703654a14f8
+	fromColumn: Fact_Honda_Enquiry.Network_Code
+	toColumn: 'Dim Location'.Network_Code
+
+relationship AutoDetected_d6b04dbe-58dc-41f0-b2b7-d12cd2bcc502
+	fromColumn: Fact_Honda_Enquiry.Assigned_To_DSE_Name
+	toColumn: 'Sales Location'.Assigned_To_DSE_Name
+
+relationship 84a142a5-6921-b602-a582-a99e059422be
+	fromColumn: Fact_Honda_Enquiry.Financier
+	toColumn: Hypothication.Hypothecation
+

@@ -1,0 +1,61 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Measure
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Fact Service Raw","Fact Sales Org Input","02 Free Service","01 Base Measure","03 Paid Service","04 Time Inteligence","05 Growth","06 Delta","Dim Model","Labour Revenue","Fact_AMC_EW_Master","Fact_Honda_Enquiry","Sales Measure","Dim Service Type","Dim Location","Indore_Ward","Colony List","Old Sales Person","Sales Location","Hypothication","Enquiry Measures","Sales Conversation","Service Convertion","Dim Chassis","AMC","Job Card","EW+","Parts Revenue","Lubes Revenue","RangeStart","RangeEnd"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Fact Service Raw'
+ref table DateTableTemplate_041d9d8e-a95b-4dba-9225-690b0179107a
+ref table 'Fact Sales Org Input'
+ref table Dim_Date
+ref table '02 Free Service'
+ref table '01 Base Measure'
+ref table '03 Paid Service'
+ref table '04 Time Inteligence'
+ref table '05 Growth'
+ref table '06 Delta'
+ref table LocalDateTable_824b82de-6aa6-4c5d-8592-692141ba3061
+ref table 'Dim Model'
+ref table 'Labour Revenue'
+ref table Fact_AMC_EW_Master
+ref table LocalDateTable_6a356756-bd1d-423e-9c58-81c79c72cb97
+ref table LocalDateTable_6bbbe599-0bfb-4ffa-8f95-fe645ad50335
+ref table LocalDateTable_35a0cab6-3a5d-4b7b-b1ba-f75837829d62
+ref table Fact_Honda_Enquiry
+ref table 'Sales Measure'
+ref table 'Dim Service Type'
+ref table 'Dim Location'
+ref table Indore_Ward
+ref table 'Colony List'
+ref table 'Sales Location'
+ref table Hypothication
+ref table 'Enquiry Measures'
+ref table 'Sales Conversation'
+ref table 'Service Convertion'
+ref table 'Dim Chassis'
+ref table LocalDateTable_95101315-61e4-419d-872c-37dd4c1a1fed
+ref table LocalDateTable_54a831a3-022d-4cf0-a74d-47cdd3b5b27a
+ref table LocalDateTable_7b7be6a4-8466-444f-9a46-4eaae287eb2f
+ref table 'Vechele Age Month'
+ref table LocalDateTable_a277f9a3-c665-48ae-99d4-d83af00bfdc9
+ref table AMC
+ref table 'Job Card'
+ref table EW+
+ref table 'Parts Revenue'
+ref table 'Lubes Revenue'
+
+ref cultureInfo en-US
+

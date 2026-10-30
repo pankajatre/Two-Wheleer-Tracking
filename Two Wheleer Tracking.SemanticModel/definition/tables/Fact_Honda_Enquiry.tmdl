@@ -1,0 +1,179 @@
+table Fact_Honda_Enquiry
+	lineageTag: 6a9f80ad-3e9f-426b-80c9-a90d6476669a
+
+	column Model_Name
+		dataType: string
+		lineageTag: 031c2b07-3194-4cfa-86bf-23bedb5235dc
+		summarizeBy: none
+		sourceColumn: Model_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enquiry_Type
+		dataType: string
+		lineageTag: dfacdbc5-55f1-423d-9429-9ddcdf953795
+		summarizeBy: none
+		sourceColumn: Enquiry_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Closure_Remarks
+		dataType: string
+		lineageTag: 41d56eaa-9b65-41b5-a344-d3420b084bb4
+		summarizeBy: none
+		sourceColumn: Closure_Remarks
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enquiry_Source
+		dataType: string
+		lineageTag: 701d4f68-fa47-46a5-9449-fb6e92649897
+		summarizeBy: none
+		sourceColumn: Enquiry_Source
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mobile_No
+		dataType: string
+		lineageTag: 4b549623-9e05-43fc-b2f5-69e4d264ccbf
+		summarizeBy: none
+		sourceColumn: Mobile_No
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enquiry_Created_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fd7de22f-48d9-47ec-a04a-228a45297729
+		summarizeBy: none
+		sourceColumn: Enquiry_Created_Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enquiry
+		dataType: string
+		lineageTag: 4279dd2e-cd78-4ae3-a387-bcb1e263acba
+		summarizeBy: none
+		sourceColumn: Enquiry
+
+		annotation SummarizationSetBy = Automatic
+
+	column First_Name
+		dataType: string
+		lineageTag: 076dcfd5-84ec-4b23-ab89-8a700dc16b2a
+		summarizeBy: none
+		sourceColumn: First_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Last_Name
+		dataType: string
+		lineageTag: ac5426ea-3062-4495-aea5-b79b6aee0014
+		summarizeBy: none
+		sourceColumn: Last_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales_Cycle
+		dataType: string
+		lineageTag: 362a0b1b-6cba-4624-aed4-79185c0042bb
+		summarizeBy: none
+		sourceColumn: Sales_Cycle
+
+		annotation SummarizationSetBy = Automatic
+
+	column Assigned_To_DSE_Name
+		dataType: string
+		lineageTag: 857ded4e-4591-4872-b5eb-5247485f5024
+		summarizeBy: none
+		sourceColumn: Assigned_To_DSE_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Purchase_Type
+		dataType: string
+		lineageTag: 74b6afe9-7b2a-44fe-a0b7-eed8e54c3906
+		summarizeBy: none
+		sourceColumn: Purchase_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: fe16e287-a0ad-489e-9bd4-505a30da6c04
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Financier
+		dataType: string
+		lineageTag: 6539f29c-158e-4ef4-a4c0-3fe1ac5065e6
+		summarizeBy: none
+		sourceColumn: Financier
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Code
+		dataType: string
+		lineageTag: b1241fff-409e-4439-8427-d353c0bb7853
+		summarizeBy: none
+		sourceColumn: Model_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Network_Code
+		dataType: string
+		lineageTag: 89522478-bea6-41c1-a61a-83a5ed288adc
+		summarizeBy: none
+		sourceColumn: Network_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Network_Type
+		dataType: string
+		lineageTag: 8f1756a7-3cc8-4e09-b608-d577880c81ee
+		summarizeBy: none
+		sourceColumn: Network_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Category
+		dataType: string
+		lineageTag: facb5eaa-2469-477c-b5ba-fc7a0ca7971d
+		summarizeBy: none
+		sourceColumn: Model_Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Variant
+		dataType: string
+		lineageTag: a2f17982-8a8f-40b1-88c2-d84b6dd7937c
+		summarizeBy: none
+		sourceColumn: Model_Variant
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enquiry_Status
+		dataType: string
+		lineageTag: ce1d8d53-4059-4ef3-b889-c24139daea54
+		summarizeBy: none
+		sourceColumn: Enquiry_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Honda_Enquiry = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-M0KE14I\MSSQLSERVERSHYAM"),
+				    Honda = Source{[Name="Honda"]}[Data],
+				    dbo_VW_Honda_Enquiry = Honda{[Schema="dbo",Item="vw_Honda_Enquiry_Indore"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(dbo_VW_Honda_Enquiry, each [Assigned_To_DSE_Name] <> "ISHWAR SISODIYA" and [Assigned_To_DSE_Name] <> "RATAN YADAV")
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

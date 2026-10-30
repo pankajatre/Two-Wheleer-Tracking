@@ -1,0 +1,40 @@
+table Hypothication
+	lineageTag: a8a95017-68bb-438e-a358-cfbef2c6eb38
+
+	column Hypothecation
+		dataType: string
+		lineageTag: 1da5362e-1861-4d2d-8ee9-00c0200f4c72
+		summarizeBy: none
+		sourceColumn: Hypothecation
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Final Bank Name'
+		dataType: string
+		lineageTag: b6b05f8a-6339-418e-a82d-0bdc90123bcd
+		summarizeBy: none
+		sourceColumn: Final Bank Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Hypothication = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-M0KE14I\MSSQLSERVERSHYAM"),
+				    Honda = Source{[Name="Honda"]}[Data],
+				    dbo_vw_Sales_Master = Honda{[Schema="dbo",Item="vw_Sales_Master"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(dbo_vw_Sales_Master,{{"Invoice_Date", type date}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type",{{"Hypothecation", Text.Trim, type text}}),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Trimmed Text",{{"Hypothecation", Text.Proper, type text}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Capitalized Each Word",{"Hypothecation"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each [Hypothecation] <> "." and [Hypothecation] <> null),
+				    #"Added Conditional Column" = Table.AddColumn(#"Filtered Rows", "Final Bank Name", each if Text.Contains([Hypothecation], "Hdfc") then "HDFC" else if Text.Contains([Hypothecation], "Axis") then "Axis" else if Text.Contains([Hypothecation], "Kotak") then "Kotak Mahindra" else if Text.Contains([Hypothecation], "Au Small") then "AU Small" else if Text.Contains([Hypothecation], "Indusind") then "Indusind" else if Text.Contains([Hypothecation], "Tata") then "Tata Capital" else if Text.Contains([Hypothecation], "Bajaj") then "Bajaj" else if Text.Contains([Hypothecation], "Icici") then "ICICI" else if Text.Contains([Hypothecation], "Idfc") then "IDFC First" else if Text.Contains([Hypothecation], "Jana") then "Jana Small" else if Text.Contains([Hypothecation], "Madhya Pradesh") then "Madhya Pradesh" else if Text.Contains([Hypothecation], "A U Small") then "AU Small" else if Text.Contains([Hypothecation], "Bank Of India") then "BOI" else if Text.Contains([Hypothecation], "L&T") then "L&T" else if Text.Contains([Hypothecation], "Berar") then "Berar" else if Text.Contains([Hypothecation], "Shriram") then "Shriram" else if Text.Contains([Hypothecation], "Hdb") then "HDB" else if Text.Contains([Hypothecation], "Bandhan") then "Bandhan" else if Text.Contains([Hypothecation], "Bank Of Baroda") then "Bank Of Baroda" else if Text.Contains([Hypothecation], "Canara") then "Canara" else if Text.Contains([Hypothecation], "Chola Mandalam") then "Chola Mandalam" else if Text.Contains([Hypothecation], "Cholamandalam") then "Chola Mandalam" else if Text.Contains([Hypothecation], "Punjab") then "Punjab" else if Text.Contains([Hypothecation], "Au Finance") then "AU Small" else "UND")
+				in
+				    #"Added Conditional Column"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

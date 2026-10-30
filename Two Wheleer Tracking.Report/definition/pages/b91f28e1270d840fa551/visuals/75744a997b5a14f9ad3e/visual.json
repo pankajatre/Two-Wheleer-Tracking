@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "75744a997b5a14f9ad3e",
+  "position": {
+    "x": 0,
+    "y": 117.14285714285715,
+    "z": 0,
+    "height": 134.28571428571431,
+    "width": 315.71428571428572,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Labour Revenue"
+                    }
+                  },
+                  "Property": "Total Service Labour (Exc GST)"
+                }
+              },
+              "queryRef": "Labour Revenue.Service Labour",
+              "nativeQueryRef": "Total Service Labour (Exc GST)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Labour Revenue"
+                  }
+                },
+                "Property": "Total Service Labour (Exc GST)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

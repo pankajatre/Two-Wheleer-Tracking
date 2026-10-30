@@ -1,0 +1,20 @@
+table 'Vechele Age Month'
+	lineageTag: 8af47c1b-b25a-48ae-98e9-ad6d64614733
+
+	column Column
+		formatString: 0
+		lineageTag: e7706017-6abd-4e96-9639-69e937e3f2f7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Vechele Age Month' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 8b6403b297604e9e8cb12adc0cf4f7ee
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

@@ -1,0 +1,75 @@
+table 'Job Card'
+	lineageTag: bc5d16e7-d4f2-4d77-8b20-1098a18cdb46
+
+	measure 'Total Job Card' = DISTINCTCOUNT('Fact Service Raw'[Job_Card_Number])
+		formatString: 0
+		lineageTag: 48de5bb9-3dba-4532-8888-b28fe163d3b6
+
+	measure 'MTD Job Card' = TOTALMTD([Total Job Card],Dim_Date[Date])
+		formatString: 0
+		lineageTag: 7325d8d5-72b9-4dfa-b784-e67c21625083
+
+	measure 'LMTD Job Card' = CALCULATE([MTD Job Card],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: 97c11c9e-4c39-4a1b-b926-294ef02303a7
+
+	measure 'YTD Job Card' = TOTALYTD([Total Job Card],Dim_Date[Date],"31/3")
+		formatString: 0
+		lineageTag: 6bd9d783-4420-4bb2-baeb-f26b4b723d83
+
+	measure 'LYTD Job Card' = CALCULATE([YTD Job Card],DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: 2190c0c0-aa82-4214-ac46-20c3cf5a19e8
+
+	measure 'LMTD TLD Job Card' = ```
+			
+			VAR CutoffDay =
+			    DAY(
+			        CALCULATE(
+			            MAX('Fact Service Raw'[Job_Card_Closed_Date]),
+			            ALL(Dim_Date)
+			        )
+			    )
+			VAR LastDates =
+			    MAX(Dim_Date[Date])
+			RETURN
+			CALCULATE(
+			    [Total Job Cards],
+			    DATESBETWEEN(
+			        Dim_Date[Date],
+			        EOMONTH(LastDates,-2)+1,
+			        DATE(
+			            YEAR(EDATE(LastDates,-1)),
+			            MONTH(EDATE(LastDates,-1)),
+			            CutoffDay
+			        )
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 1597a6ec-d404-46be-804e-5b0492988dd7
+
+	measure 'Growth YTD vs LYTD Job Card' = DIVIDE([YTD Job Card],[LYTD Job Card])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 12deff1c-1455-406d-9b33-3a37e91c6f27
+
+	measure 'Growth MTD vs LMTD Job Card' = DIVIDE([MTD Job Card],[LMTD TLD Job Card])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ec1ed89d-c784-4191-81dd-8ce76225a336
+
+	partition 'Job Card' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

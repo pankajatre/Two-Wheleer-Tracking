@@ -1,0 +1,111 @@
+table EW+
+	lineageTag: 29630d79-df92-4cf1-94fe-179c7939d0cd
+
+	measure 'Total EW+' = CALCULATE(DISTINCTCOUNT(Fact_AMC_EW_Master[Invoice_Number]),Fact_AMC_EW_Master[Order_SubType] = "EW Plus")
+		formatString: 0
+		lineageTag: 000c0d9c-9b97-4cc6-bec9-76ea6c588f2e
+
+	measure 'Total EW + Convertion' = DIVIDE([Total EW+],[Total Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 19bfefd8-b48b-4767-bbf9-c8095bac54ba
+
+	measure 'YTD EW+' = TOTALYTD([Total EW+],Dim_Date[Date],"31/3")
+		formatString: 0
+		lineageTag: 16f49136-9ccd-4032-bae5-ade0bf28a750
+
+	measure 'LYTD EW+' = CALCULATE([YTD EW+],DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: 276d6ad1-71ee-4a48-8b64-a175bccae71d
+
+	measure 'EW+ Growth YTDvsLYTD' = DIVIDE([YTD EW+],[LYTD EW+])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: edda9e3c-9cb9-4afb-82ed-fa8b6a20711b
+
+	measure 'YTD EW+ Convertion' = DIVIDE([YTD EW+],[YTD Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: db58ff94-087d-4e19-81e2-defe16308da7
+
+	measure 'LYTD EW+ Convertion' = DIVIDE([LYTD EW+],[LYTD Job Card])
+		lineageTag: 766855e0-1df8-48a7-90a8-f4284b20b8aa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EW+ Convertion Delta YTD vs LYTD' = [YTD EW+ Convertion] - [LYTD EW+ Convertion]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3b8358ac-cbae-4530-bb1e-c1f8aa488d31
+
+	measure 'MTD EW+' = TOTALMTD([Total EW+],Dim_Date[Date])
+		formatString: 0
+		lineageTag: eaf5660f-1b19-454b-8b9b-ae52e84a68b7
+
+	measure 'LMTD TLD EW+' = ```
+			
+			VAR CutoffDay =
+			    DAY(
+			        CALCULATE(
+			            MAX(Fact_AMC_EW_Master[Order_Date - Copy]),
+			            ALL(Dim_Date)
+			        )
+			    )
+			VAR LastDates =
+			    MAX(Dim_Date[Date])
+			RETURN
+			CALCULATE(
+			    [Total EW+],
+			    DATESBETWEEN(
+			        Dim_Date[Date],
+			        EOMONTH(LastDates,-2)+1,
+			        DATE(
+			            YEAR(EDATE(LastDates,-1)),
+			            MONTH(EDATE(LastDates,-1)),
+			            CutoffDay
+			        )
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 11050a38-575c-4800-b7e5-2af39657bcb7
+
+	measure 'EW+ Growth MTDvsLMTD TLD' = DIVIDE([MTD EW+],[LMTD TLD EW+])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f6792e8e-6421-46fe-8a1c-9b87a3df4e91
+
+	measure 'EW+ Growth MTDvsLMTD' = DIVIDE([MTD EW+],[LMTD EW+])-1
+		lineageTag: 36c5080e-cd2b-4357-9b26-053e365e9251
+
+	measure 'LMTD EW+' = CALCULATE([MTD EW+],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: 7bd1b545-725f-4eb2-9dfc-3ac0edb9ce7b
+
+	measure 'MTD EW+ Convertion' = DIVIDE([MTD EW+],[MTD Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b89c3808-a179-47df-a06c-14f6a74fdde9
+
+	measure 'LMTD TLD EW+ Convertion' = DIVIDE([LMTD TLD EW+],[LMTD TLD Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 58ae7a71-611f-45ce-a04a-9f734b3beedf
+
+	measure 'EW+ Convertion Delta MTD vs LMTD' = [MTD EW+ Convertion] - [LMTD TLD EW+ Convertion]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 693e6947-d80a-43f0-a305-719c8cac1b8d
+
+	measure 'LYMTD EW+' = CALCULATE([MTD EW+], DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: 90ae0346-44da-4534-9b4a-9daad81268fd
+
+	partition EW+ = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

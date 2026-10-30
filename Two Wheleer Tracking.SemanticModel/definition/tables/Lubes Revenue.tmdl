@@ -1,0 +1,108 @@
+table 'Lubes Revenue'
+	lineageTag: 04d38bd5-5e65-46be-8e74-e9b8ba0fe069
+
+	measure 'Total Lubes Revenue' = SUM('Fact Service Raw'[Lubes_Revenue])
+		lineageTag: 22bdd042-b737-452b-a976-d15a78b943ca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MTD Lubes Revenue' = TOTALMTD([Total Lubes Revenue],Dim_Date[Date])
+		lineageTag: 6d4f0577-def0-4889-8492-2a3ac7dcac31
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LMTD Lubes Revenue' = CALCULATE([MTD Lubes Revenue],DATEADD(Dim_Date[Date],-1,MONTH))
+		lineageTag: 46762253-c022-4b49-9f9a-01eb945ff633
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Lubes Revenue MTDvsLMTD %' = DIVIDE([MTD Lubes Revenue],[LMTD Lubes Revenue])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 96da9280-72e7-4963-a154-1aa5b042b06a
+
+	measure 'YTD Lubes Revenue' = TOTALYTD([Total Lubes Revenue],Dim_Date[Date],"31/3")
+		lineageTag: f1470bb7-e8ba-4623-a434-260008f74e7d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LMTD TLD Lubes Revenue' =
+			
+			VAR CutoffDay =
+			    DAY(
+			        CALCULATE(
+			            MAX('Fact Service Raw'[Job_Card_Closed_Date]),
+			            ALL(Dim_Date)
+			        )
+			    )
+			VAR LastDates =
+			    MAX(Dim_Date[Date])
+			RETURN
+			CALCULATE(
+			    [Total Lubes Revenue],
+			    DATESBETWEEN(
+			        Dim_Date[Date],
+			        EOMONTH(LastDates,-2)+1,
+			        DATE(
+			            YEAR(EDATE(LastDates,-1)),
+			            MONTH(EDATE(LastDates,-1)),
+			            CutoffDay
+			        )
+			    )
+			)
+		lineageTag: 2ceeb914-720c-41b7-a05e-150a311baa54
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LYTD Lubes Revenue' = CALCULATE( [YTD Lubes Revenue],DATESYTD(DATEADD(Dim_Date[Date],-1,YEAR)))
+		lineageTag: 0b96a1d9-6c18-448f-967d-34af4acc1539
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Lubes Revenue Growth MTDvsLMTD TLD' = DIVIDE([MTD Lubes Revenue],[LMTD TLD Lubes Revenue])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ba1bb7d6-810c-4dd5-979f-dffe145efd56
+
+	measure 'Lubes Revenue Growth YTDvsLYTD' = DIVIDE([YTD Lubes Revenue],[LYTD Lubes Revenue])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 494afb29-ddce-4273-bb05-dc125fabbbbf
+
+	measure 'MTD Per Vehicle Lubes Revenue' = DIVIDE([MTD Lubes Revenue],[MTD Job Card])
+		lineageTag: 65a6ddbb-1055-4f19-9248-14003d6329ce
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD Per Vehicle Lubes Revenue' = DIVIDE([YTD Lubes Revenue],[YTD Job Card])
+		lineageTag: ce096424-cf2c-41ea-99d8-acda1f8b7992
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LYTD Per Vehicle Lubes Revenue' = DIVIDE([LYTD Lubes Revenue],[LYTD Job Card])
+		lineageTag: 9eb509c4-2eff-46ba-8bb1-7c6ddc7f455f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LMTD TLD Per Vehicle Lubes Revenue' = DIVIDE([LMTD TLD Lubes Revenue],[LMTD TLD Job Card])
+		lineageTag: cfd16c31-3352-4af1-905b-1aaf6a779b72
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LMTD Per Vehicle Lubes Revenue' = DIVIDE([LMTD Lubes Revenue],[LMTD Job Card])
+		lineageTag: 7c6928c7-4169-4fb2-a154-7dc7a8229de1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Lubes Revenue' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,37 @@
+table 'Dim Model'
+	lineageTag: ff3d2400-64d1-4728-8cbf-36f019ff7786
+
+	column Model_Name
+		dataType: string
+		lineageTag: aa9cf8f3-88bb-4c1a-83fb-4ae18a14ebba
+		summarizeBy: none
+		sourceColumn: Model_Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MODEL
+		dataType: string
+		lineageTag: aeaec33b-d112-4fd2-a789-b69cbc3bed1d
+		summarizeBy: none
+		sourceColumn: MODEL
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Model' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("jZbRktogFIZfhdmrdkY7Saz2GgSVaRJdktisWx+j7184HAgkEPdGz//9PwQQiJ+fb/TYyzt927jiuXGMlNXecxCxR7jsjuTKeLWeUkNDaF1fP76YfZn6UoCtJrqGqn69o905uSg/03ifxoc05vW4jR4emjJJ4zmFDswl313X85R5l7S/KgOxMvTIyOWqWtGT8lAYcwYw011kK6xrS+S9kuezwHZOOO+P7HrvoUBvaOVRP8V6TsSeeX7kA5hlOH08aveMOZxlb0o0cmjirIM2azYKzt6tfgiDFKwC6W4+4YHNVEUxggfFxNwOXBjblLErihMwKJDtC3L5+68oql+t6LpgoDMnyPu+tUB80ttkaFtcu0mha28CLCxT5R53iK2QVp5WAT3sceS2AspJWRb6xAsKPwLIhUO4qIdR+CGHqSA05r1Ey1q+G2K+jObyqqX5RBVeMigXFst40WFMBnpOdpyIhtWiyQX1/ZAM+UAGsRkLzr7HsCqtgDn7enI+hjP1FgjjCX1aW9MEC8POij6kyWJhWLgV7f7aJBgk7cGqfkBkErFHKOvcZFdD25chtz6zRC3vZl7w5bR9s31raN+L767nZSLjmHfYatssZCFt9cWsNXyBHvVV4GOggL8fS63Np1HuarYXUImZSWUdfYh857kIDnzNzjaHG2SqI8es5u9t3Psyo9f1VeYLNlv6NxzcLSKE+z83C0cPN+upvDP9uZl7K5jN+aEgJ2W3KJysA1Eq2o+QWU+HazlLr2AW8emtHb6y3asUu8lZLO1tE81GwmrKzaZ21fP5Hw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Model_Name = _t, MODEL = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Model_Name", type text}, {"MODEL", type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type",{{"Model_Name", Text.Trim, type text}, {"MODEL", Text.Trim, type text}})
+				in
+				    #"Trimmed Text"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

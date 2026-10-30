@@ -1,0 +1,123 @@
+table '05 Growth'
+	lineageTag: be2aacc8-00d4-42bb-bd80-64898df7456f
+
+	measure 'Growth MTD_TLD%' = DIVIDE([Service till same day(MTD_TLD)],[LMTD Service till same day(MTD_TLD)])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 34adebf7-a1b8-42c6-8375-d3a2fd3c59e2
+
+		changedProperty = IsHidden
+
+	measure 'Total Service Growth %' = DIVIDE([Total Service]-[SMPL Total Service],[SMPL Total Service])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 048e431e-b365-4556-881a-44bc753cbb99
+
+		changedProperty = IsHidden
+
+	measure 'Service Growth MTDvsLMTD %' = DIVIDE([MTD SERVICE],[LMTD SERVICE])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 67e8f4ef-1909-4a1b-9859-5ff4127981a4
+
+		changedProperty = IsHidden
+
+	measure 'Vechicle Growth YTDvsLYTD %' = DIVIDE([Total Vehicles New],[SMPL Total Vehicles])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 407c8507-6605-4630-b6b7-df20e4722f49
+
+		changedProperty = IsHidden
+
+	measure 'Paid Service Growth YTD vs LYTD' = DIVIDE('03 Paid Service'[Paid Service],[SMPL Paid Service])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 30fc96d0-ff31-4eb2-b075-75b4ceefdee3
+
+		changedProperty = IsHidden
+
+	measure '1st Free YTDvsLYTD' = DIVIDE('02 Free Service'[1st Free Service],[1st Free Service SMPL])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0f0e5fbc-5b50-4907-b02f-0f66c49b1433
+
+		changedProperty = IsHidden
+
+	measure '2nd Free YTDvsLYTD' = DIVIDE('02 Free Service'[2nd Free Service],[2nd Free Service SMPL])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: dc1da74d-7198-45ca-bb9f-d2e586abb764
+
+		changedProperty = IsHidden
+
+	measure '3rd Free YTDvsLYTD' = DIVIDE('02 Free Service'[3rd Free Service],[3rd Free Service SMPL])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9d3e70aa-ce49-4591-a27c-d3ed51986b61
+
+		changedProperty = IsHidden
+
+	measure 'Total Service Revenue Growth %' = DIVIDE([Total Service Revenue]-[SMPL Total Service Revenue],[SMPL Total Service Revenue])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 34bdcbcd-c998-4a84-b345-1d9ae730fa75
+
+	measure 'Total Labour Revenue Growth %' = DIVIDE([Labour Excl GST]-[SMPL Labour Revenue],[SMPL Labour Revenue])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 96f7f0f8-c2ca-404b-a7e4-a831e2d05f32
+
+	measure 'Total Parts Revenue Growth %' = DIVIDE([Total Parts Revenue]-[SMPL Total Parts Revenue],[SMPL Total Parts Revenue])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4f4c7983-9e93-4219-9d86-341d78779ae8
+
+	measure 'Total Lubes Revenue Growth %' = DIVIDE([Total Lubes Revenue]-[SMPL Total Lubes Revenue],[SMPL Total Lubes Revenue])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cc35e531-d86b-46c7-b53b-b0b4a16d781d
+
+	measure 'LABOUR REVENUE MTDvsLMTD %' = DIVIDE([MTD LABOUR REVENUE],[LMTD LABOUR REVENUE])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e3893126-6548-4899-961d-9ec6147ff4ce
+
+	measure 'Vechicle Base Growth YTDvsLYTD %' =
+			
+			VAR CurrentYTD =
+			    [Total Vehicles 2.0(Running Total)]
+			
+			VAR LYTD =
+			    [SMPL Total Vehicles]
+			
+			RETURN
+			IF(
+			    ISBLANK(LYTD) || LYTD = 0,
+			    BLANK(),
+			    DIVIDE(CurrentYTD - LYTD, LYTD)
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 527c7458-50b5-4ddc-92f4-fb4a6584d5ba
+
+	measure 'SMPL Vechicle base Growth YTDvsLYTD %' = CALCULATE([Vechicle Base Growth YTDvsLYTD %],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cd128bec-4f55-41ff-92c3-974a1765f307
+
+	measure 'YTD Total Service Growth %' = DIVIDE([YTD Total Service]-[LYTD Total Service],[LYTD Total Service])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e90419fd-95b3-488e-a8a9-42384026bdce
+
+	measure 'LYTD Total Service Growth%' = CALCULATE([LYTD Total Service Growth], SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7575b721-0b66-4e1f-b0f5-8f498bdeb16a
+
+	measure 'LYTD Total Service Growth' = CALCULATE([Total Service Growth %], SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: eb2a67f2-4dd6-4ef2-92b1-3c6da4b4bfc8
+
+	measure 'Growth All Free Service' = DIVIDE('02 Free Service'[All Free Service],'02 Free Service'[SMPL All Free Service])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0ab6b8cf-6c59-435d-8c8f-7acccc5ef23d
+
+	partition '05 Growth' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

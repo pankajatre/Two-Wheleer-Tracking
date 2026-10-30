@@ -1,0 +1,25 @@
+table 'Colony List'
+	lineageTag: e7f0a6b6-ec42-4ae1-9113-ef19133c374b
+
+	column 'Colony List'
+		dataType: string
+		lineageTag: bd82b7a8-1cd5-4570-9584-ae18c64e1dea
+		summarizeBy: none
+		sourceColumn: Colony List
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Colony List' = m
+		mode: import
+		source =
+				let
+				    Source = Indore_Ward,
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Locality_Area"}),
+				    Locality_Area = #"Removed Other Columns"[Locality_Area]
+				in
+				    Locality_Area
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = List
+

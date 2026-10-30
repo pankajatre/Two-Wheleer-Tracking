@@ -1,0 +1,195 @@
+table Fact_AMC_EW_Master
+	lineageTag: a7146c0b-255c-4125-bf9c-4f5b31df7540
+
+	column Network_Code
+		dataType: string
+		lineageTag: 8da671c1-cc42-404e-bcb3-6076b05f14fd
+		summarizeBy: none
+		sourceColumn: Network_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Name
+		dataType: string
+		lineageTag: 16ecf900-0f60-49cd-acc5-ce9099f99ec5
+		summarizeBy: none
+		sourceColumn: Model_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Frame_Sale_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 20e31fe0-e9e1-4fd9-9fa5-e80ec863f9d3
+		summarizeBy: none
+		sourceColumn: Frame_Sale_Date
+
+		variation Variation
+			isDefault
+			relationship: 5f570b8c-934a-4c2c-b4b8-df34295e642a
+			defaultHierarchy: LocalDateTable_6a356756-bd1d-423e-9c58-81c79c72cb97.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Frame_Age_in_Yrs
+		dataType: double
+		lineageTag: 238afe1b-78a8-480b-82f9-e83c695b517b
+		summarizeBy: sum
+		sourceColumn: Frame_Age_in_Yrs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Last_Visit_Service_KMs
+		dataType: string
+		lineageTag: efdae1fd-dfd8-4876-afb2-1da24375248d
+		summarizeBy: none
+		sourceColumn: Last_Visit_Service_KMs
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendor_Cost
+		dataType: int64
+		formatString: 0
+		lineageTag: c364a128-fa43-4e3c-ab91-681b1cba1845
+		summarizeBy: sum
+		sourceColumn: Vendor_Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_SubType
+		dataType: string
+		lineageTag: 273dd43d-387b-4ba6-bb0a-eaf157d2b123
+		summarizeBy: none
+		sourceColumn: Order_SubType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: string
+		lineageTag: f3a77808-33c3-4edf-a637-3d1e74a25ce4
+		summarizeBy: none
+		sourceColumn: Price
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service_Product
+		dataType: string
+		lineageTag: f7acc95e-ed39-4039-881b-4d928f446fce
+		summarizeBy: none
+		sourceColumn: Service_Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_Submit_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 317ef3b7-6a3c-4e53-8733-c9c618f4794d
+		summarizeBy: none
+		sourceColumn: Order_Submit_Date
+
+		variation Variation
+			isDefault
+			relationship: 32cf0230-a5d4-4f85-a3f4-5c76e7c06a60
+			defaultHierarchy: LocalDateTable_6bbbe599-0bfb-4ffa-8f95-fe645ad50335.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Frame
+		dataType: string
+		lineageTag: 258a7d25-f85b-4bbd-b74b-806f5aee7542
+		summarizeBy: none
+		sourceColumn: Frame
+
+		annotation SummarizationSetBy = Automatic
+
+	column First_Name
+		dataType: string
+		lineageTag: b7b2a51b-2c02-4824-b20e-5d2309e5aa91
+		summarizeBy: none
+		sourceColumn: First_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Last_Name
+		dataType: string
+		lineageTag: 060ba7e1-dfdf-419b-8e32-94a2a4c32017
+		summarizeBy: none
+		sourceColumn: Last_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d24470a6-49a7-4112-8fae-fb3fa87ea5f3
+		summarizeBy: none
+		sourceColumn: Order_Date
+
+		variation Variation
+			isDefault
+			relationship: 5f6133bd-f6aa-40c0-8e0d-0382f741d492
+			defaultHierarchy: LocalDateTable_35a0cab6-3a5d-4b7b-b1ba-f75837829d62.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column SPO_Ref_No
+		dataType: string
+		lineageTag: f1e63a00-d647-425b-8645-4842001d4995
+		summarizeBy: none
+		sourceColumn: SPO_Ref_No
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 625a4252-f8b6-484d-83ee-9e21a190021e
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Balance_Payment
+		dataType: string
+		lineageTag: d350cec5-4f2a-46d3-923a-2455818855f4
+		summarizeBy: none
+		sourceColumn: Balance_Payment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order_Date - Copy'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 9fd90ad4-574f-43e1-98c5-13ff8584a27f
+		summarizeBy: none
+		sourceColumn: Order_Date - Copy
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Invoice_Number
+		dataType: string
+		lineageTag: fe67e913-7918-4c0f-b183-26af2996d9f1
+		summarizeBy: none
+		sourceColumn: Invoice_Number
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_AMC_EW_Master = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-M0KE14I\MSSQLSERVERSHYAM"),
+				    Honda = Source{[Name="Honda"]}[Data],
+				    dbo_VW_AMC_EW_Master = Honda{[Schema="dbo",Item="VW_AMC_EW_Master"]}[Data],
+				    #"Duplicated Column" = Table.DuplicateColumn(dbo_VW_AMC_EW_Master, "Order_Date", "Order_Date - Copy"),
+				    #"Extracted Date" = Table.TransformColumns(#"Duplicated Column",{{"Order_Date - Copy", DateTime.Date, type date}})
+				in
+				    #"Extracted Date"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

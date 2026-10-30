@@ -1,0 +1,322 @@
+table '01 Base Measure'
+	lineageTag: 35437399-c27f-4841-808b-35eb2bcc71d7
+
+	measure 'Total Service' = COUNTROWS('Fact Service Raw')
+		lineageTag: 56d577b4-95db-48fc-b4ea-6be5894d647e
+
+		changedProperty = IsHidden
+
+	measure 'Total Vehicles' =
+			
+			
+			VAR SelectedYear =
+			    SELECTEDVALUE(Dim_Date[Year])
+			
+			VAR MaxSalesDate =
+			    CALCULATE(
+			        MAX('Fact Sales Org Input'[Invoice_Date]),
+			        ALL(Dim_Date)
+			    )
+			
+			VAR MaxServiceDate =
+			    CALCULATE(
+			        MAX('Fact Service Raw'[Job_Card_Closed_Date]),
+			        ALL(Dim_Date)
+			    )
+			
+			VAR MaxDate =
+			    IF(MaxSalesDate >= MaxServiceDate, MaxSalesDate, MaxServiceDate)
+			
+			VAR CutOffDate =
+			    DATE(
+			        SelectedYear,
+			        MONTH(MaxDate),
+			        DAY(MaxDate)
+			    )
+			
+			VAR SalesChassis =
+			    CALCULATETABLE(
+			        VALUES('Fact Sales Org Input'[Frame]),
+			        ALL(Dim_Date),
+			        Dim_Date[Date] <= CutOffDate
+			    )
+			
+			VAR ServiceChassis =
+			    CALCULATETABLE(
+			        VALUES('Fact Service Raw'[Frame_Number]),
+			        ALL(Dim_Date),
+			        Dim_Date[Date] <= CutOffDate
+			    )
+			
+			RETURN
+			COUNTROWS(
+			    DISTINCT(
+			        UNION(
+			            SalesChassis,
+			            ServiceChassis
+			        )
+			    )
+			)
+		formatString: 0
+		lineageTag: 56540ee3-b25c-4f6a-8f33-a02f7ccb0269
+
+		changedProperty = IsHidden
+
+	measure 'Total Service Conversation %' = DIVIDE([Total Service],[Total Vehicles New])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 691d4a7f-cde0-4e87-a90f-b4dff01d172a
+
+		changedProperty = IsHidden
+
+	measure 'Avg Services Per Chassis' =
+			
+			DIVIDE(
+			    [Total Service],
+			   [Total Vehicles],
+			    0
+			)
+		lineageTag: faf26346-2f17-447c-9828-a49563ff9643
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Job Card Max Date' = CALCULATE(MAX('Fact Service Raw'[Job_Card_Closed_Date]),ALL(Dim_Date))
+		formatString: Short Date
+		lineageTag: a9105e1f-0c56-4c61-82b8-ff5b6b21c39e
+
+		changedProperty = IsHidden
+
+	measure 'Min Date' = MIN('Fact Service Raw'[Job_Card_Closed_Date])
+		formatString: General Date
+		lineageTag: bd6f3a6e-1774-4caa-bbf0-c18aa1f2ae03
+
+		changedProperty = IsHidden
+
+	measure 'Total Vehicles Sold' = COUNTROWS('Fact Sales Org Input')
+		formatString: 0
+		lineageTag: 1856bbca-3c75-45de-ac09-b0df79ed040e
+
+		changedProperty = IsHidden
+
+	measure 'Total Job Cards' = DISTINCTCOUNT('Fact Service Raw'[Job_Card_Number])
+		formatString: 0
+		lineageTag: efb6b98f-080b-46e1-a46d-b0cccd669d03
+
+		changedProperty = IsHidden
+
+	measure 'Total Service Revenue' = SUM('Fact Service Raw'[Total_Job_Card_Revenue])
+		formatString: 0
+		lineageTag: 0ac20c48-80ff-41a0-b47f-9b9de9ec87db
+
+		changedProperty = IsHidden
+
+	measure 'Average Revenue per Job Card' = DIVIDE([Total Service Revenue],[Total Job Cards])
+		lineageTag: 734d31f9-7896-4d44-8560-ad5fc1d349cc
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Vehicles New' =
+			
+			VAR CurrentFY =
+			    SELECTEDVALUE(Dim_Date[Fiscal Year])
+			
+			VAR FYStartYear =
+			    VALUE(LEFT(CurrentFY, 4))
+			
+			VAR FYEndDate =
+			    DATE(FYStartYear + 1, 3, 31)
+			
+			VAR MaxSalesDate =
+			    CALCULATE(
+			        MAX('Fact Sales Org Input'[Invoice_Date]),
+			        REMOVEFILTERS(Dim_Date)
+			    )
+			
+			VAR MaxServiceDate =
+			    CALCULATE(
+			        MAX('Fact Service Raw'[Job_Card_Closed_Date]),
+			        REMOVEFILTERS(Dim_Date)
+			    )
+			
+			VAR OverallMaxDate =
+			    MAX(MaxSalesDate, MaxServiceDate)
+			
+			VAR CutOffDate =
+			    MIN(FYEndDate, OverallMaxDate)
+			
+			VAR SalesChassis =
+			    CALCULATETABLE(
+			        VALUES('Fact Sales Org Input'[Frame]),
+			        REMOVEFILTERS(Dim_Date),
+			        REMOVEFILTERS('Dim Location'[Location]),
+			        REMOVEFILTERS('Dim Model'[Model]),
+			        'Fact Sales Org Input'[Invoice_Date] <= CutOffDate
+			    )
+			
+			VAR ServiceChassis =
+			    CALCULATETABLE(
+			        VALUES('Fact Service Raw'[Frame_Number]),
+			        REMOVEFILTERS(Dim_Date),
+			        REMOVEFILTERS('Dim Location'[Location]),
+			        REMOVEFILTERS('Dim Model'[Model]),
+			        'Fact Service Raw'[Job_Card_Closed_Date] <= CutOffDate
+			    )
+			
+			RETURN
+			    COUNTROWS(
+			        DISTINCT(
+			            UNION(
+			                SalesChassis,
+			                ServiceChassis
+			            )
+			        )
+			    )
+		formatString: 0
+		lineageTag: 23ead702-6a8b-41e0-94fc-de033bc29392
+
+		changedProperty = IsHidden
+
+	measure 'Total EW PLUS' =
+			CALCULATE(DISTINCTCOUNT(Fact_AMC_EW_Master[Invoice_Number]),
+			                        'Fact_AMC_EW_Master'[Order_SubType] = "EW PLUS")
+		formatString: 0
+		lineageTag: 73e9d341-22d0-45b3-a7ab-ab708a4c2b43
+
+	measure 'PYC LABOUR' = DIVIDE([Labour Excl GST],[Total Service])
+		lineageTag: 4fb35faa-bbe6-444a-ba9d-3f12b172d9b2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'PYC LUBES' = DIVIDE([Total Lubes Revenue],[Total Service])
+		lineageTag: 28d39361-ddd5-4484-8297-2e0967631daf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'AMC/EW Max Date' = CALCULATE(MAX(Fact_AMC_EW_Master[Order_Date - Copy]),ALL(Dim_Date))
+		formatString: Short Date
+		lineageTag: 714bdd19-7338-4426-82b8-2fd904f9c25f
+
+	measure 'Invoice Max Date' = CALCULATE(MAX('Fact Sales Org Input'[Invoice_Date]),ALL(Dim_Date))
+		formatString: Short Date
+		lineageTag: a6fbef7f-2179-45bc-bf12-659ff4e8ad1a
+
+	measure 'Total Vehicles 2.0(Running Total)' = ```
+			--slicer se job bhi year aur month select karenge waha tak ka running total dikhayega
+			CALCULATE(
+			            DISTINCTCOUNT('Dim Chassis'[Frame_Number]),
+			            'Dim Chassis'[First System Login Date] <= MAX(Dim_Date[Date]))
+			
+			```
+		formatString: 0
+		lineageTag: eac80aa7-478f-4601-b381-b84d40713f1a
+
+	measure 'YTD Total Service' = TOTALYTD([Total Service],Dim_Date[Date],"31/3")
+		formatString: 0
+		lineageTag: c3bcbcf1-fcef-48cb-a300-6f2ff8aa37f5
+
+	measure 'LYTD Total Service' = CALCULATE( [YTD Total Service],DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: 54f8c3d4-e6ae-4365-8f6c-a3a40f5bf9cf
+
+	measure 'Refresh Date Source' = ```
+			
+			Var Jobcard = calculate(Max('Fact Service Raw'[Job_Card_Closed_Date]),ALL(Dim_Date),
+			ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			
+			Var Sale_Inv = calculate(Max('Fact Sales Org Input'[Invoice_Date]),ALL(Dim_Date),
+			ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			Var AMC_EW = CALCULATE(MAX(Fact_AMC_EW_Master[Order_Date - Copy]),ALL(Dim_Date),
+			ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			Var Enquiry = calculate(MAX(Fact_Honda_Enquiry[Enquiry_Created_Date]),ALL(Dim_Date),
+			ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			--Var Claim = calculate(MAX(VW_Claims_Data_Indore_Master[Created_Date]),ALL(Dim_Date),
+			--ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			--Var FSC = calculate(MAX(VW_FSC_Data_Indore_Master[Created_Date]),ALL(Dim_Date),
+			--ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			--Var DC = calculate(Max(DC_Master[Delivery_Date]),ALL(Dim_Date))
+			Return 
+			--CONCATENATE(
+			--CONCATENATE(
+			--CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			Concatenate(" Snapshot Date - Jobcard: ",Jobcard), "     Invoice: "),Sale_Inv),"     Amc: "),AMC_EW),"     Enquiry: "),Enquiry),"     Claim: ")
+			
+			--,Claim),"     FSC Claim: "),FSC)
+			```
+		lineageTag: 7e8270f3-bb42-46d4-bc09-9c0dc9e7f65d
+
+	measure 'Min Date Source' = ```
+			
+			Var Jobcard = calculate(MIN('Fact Service Raw'[Job_Card_Closed_Date]),ALL(Dim_Date),
+			ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			Var Sale_Inv = calculate(MIN('Fact Sales Org Input'[Invoice_Date]),ALL(Dim_Date),
+			ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			Var AMC_EW = CALCULATE(MIN(Fact_AMC_EW_Master[Order_Date - Copy]),ALL(Dim_Date),
+			ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			Var Enquiry = calculate(MIN(Fact_Honda_Enquiry[Enquiry_Created_Date]),ALL(Dim_Date),
+			ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			--Var Claim = calculate(MIN(VW_Claims_Data_Indore_Master[Created_Date]),ALL(Dim_Date),
+			--ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			--Var FSC = calculate(MIN(VW_FSC_Data_Indore_Master[Created_Date]),ALL(Dim_Date),
+			--ALL('Dim Service Type'[Service_Type]),ALL('Dim Model'[MODEL]),ALL('Dim Location'[Location]))
+			
+			--Var DC = calculate(Max(DC_Master[Delivery_Date]),ALL(Dim_Date))
+			Return 
+			--CONCATENATE(
+			--CONCATENATE(
+			--CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			CONCATENATE(
+			Concatenate(" Snapshot Date - Jobcard: ",Jobcard), "     Invoice: "),Sale_Inv),"     Amc: "),AMC_EW),"     Enquiry: "),Enquiry),"     Claim: ")
+			
+			--,Claim),"     FSC Claim: "),FSC)
+			```
+		lineageTag: 98165890-83ae-4474-b723-07d2fa311e3e
+
+	measure 'Labour Excl GST' =
+			
+			SUM('Fact Service Raw'[Labour_Revenue]) * 100 / 118
+		lineageTag: 0c36f345-21a7-4f06-9b24-6c529c352b02
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition '01 Base Measure' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

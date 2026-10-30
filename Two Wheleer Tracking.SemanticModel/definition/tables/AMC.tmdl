@@ -1,0 +1,111 @@
+table AMC
+	lineageTag: a4bc3c83-d404-4137-9d69-e0c845c3b264
+
+	measure 'Total AMC' = CALCULATE(DISTINCTCOUNT(Fact_AMC_EW_Master[Invoice_Number]),Fact_AMC_EW_Master[Order_SubType] = "AMC")
+		formatString: 0
+		lineageTag: 00560999-213b-47b0-9d6c-f0d030199b4f
+
+	measure 'MTD AMC' = TOTALMTD([Total AMC],Dim_Date[Date])
+		formatString: 0
+		lineageTag: 7f83f6c9-fcf0-44af-a6d4-1bcbbb08b995
+
+	measure 'LMTD AMC' = CALCULATE([MTD AMC],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: d8b9ba51-fd57-4ea0-bf54-9cef9735f45e
+
+	measure 'YTD AMC' = TOTALYTD([Total AMC],Dim_Date[Date],"31/3")
+		formatString: 0
+		lineageTag: f1eee8a6-417f-41c6-833f-f15b558207a3
+
+	measure 'LYTD AMC' = CALCULATE([YTD AMC],DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: f32b0a60-fa62-426a-a0d4-4fc587773976
+
+	measure 'AMC Growth MTDvsLMTD' = DIVIDE([MTD AMC],[LMTD AMC])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c1ba52ee-0a58-4983-88fd-8bde3be29d02
+
+	measure 'LMTD TLD AMC' = ```
+			
+			VAR CutoffDay =
+			    DAY(
+			        CALCULATE(
+			            MAX(Fact_AMC_EW_Master[Order_Date - Copy]),
+			            ALL(Dim_Date)
+			        )
+			    )
+			VAR LastDates =
+			    MAX(Dim_Date[Date])
+			RETURN
+			CALCULATE(
+			    [Total AMC],
+			    DATESBETWEEN(
+			        Dim_Date[Date],
+			        EOMONTH(LastDates,-2)+1,
+			        DATE(
+			            YEAR(EDATE(LastDates,-1)),
+			            MONTH(EDATE(LastDates,-1)),
+			            CutoffDay
+			        )
+			    )
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 03eb7f66-6f74-43ad-8213-d1dcaf596a38
+
+	measure 'AMC Growth MTDvsLMTD TLD' = DIVIDE([MTD AMC],[LMTD TLD AMC])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f50e92d7-7cf5-400f-9077-bd9d20732143
+
+	measure 'AMC Growth YTDvsLYTD' = DIVIDE([YTD AMC],[LYTD AMC])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2b59c73d-399d-467c-8006-8c55297afa7e
+
+	measure 'Total AMC Convertion' = DIVIDE([Total AMC],[Total Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 01ac23c0-d40a-4431-b97a-530cb50d66a0
+
+	measure 'MTD AMC Convertion' = DIVIDE([MTD AMC],[MTD Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 630cddf3-4784-4532-82a6-ab815812f2af
+
+	measure 'LMTD TLD AMC Convertion' = DIVIDE([LMTD TLD AMC],[LMTD TLD Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cccafb17-0fde-449a-85eb-40a5a2f9fa6b
+
+	measure 'LYTD AMC Convertion' = DIVIDE([LYTD AMC],[LYTD Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 151e9376-e4cd-459a-9109-ec56b0a79622
+
+	measure 'Convertion Delta MTD vs LMTD' = [MTD AMC Convertion] - [LMTD TLD AMC Convertion]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 835aff5b-ea47-4f29-ac71-8cf5cff48765
+
+	measure 'YTD AMC Convertion' = DIVIDE([YTD AMC],[YTD Job Card])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e0cb5e83-bc91-4a93-8103-a885de457ae7
+
+	measure 'Convertion Delta YTD vs LYTD' = [YTD AMC Convertion] - [LYTD AMC Convertion]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: dfd2065a-60d0-4cdd-bfc4-d9f81de0dd38
+
+	measure 'LYMTD AMC' = CALCULATE([MTD AMC], DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: 94e4698e-7043-489a-a9ae-509f083a164b
+
+	partition AMC = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

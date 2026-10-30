@@ -1,0 +1,7 @@
+EVALUATE
+
+DAY(
+    CALCULATE(
+            MAX('A1 Service_Raw'[Job Card Closed Date]),
+            ALL(Dim_Date[Date]))
+    )

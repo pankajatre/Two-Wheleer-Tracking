@@ -1,0 +1,108 @@
+table Dim_Date
+	lineageTag: 72e4163a-b328-4b0b-a998-e7b15516d1a2
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: Long Date
+		lineageTag: 90d0648a-5428-44b4-a4f6-9c07ac3d16c8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month Name' = FORMAT(dim_date[Date],"MMM")
+		lineageTag: 25b00ce9-a02d-4f4e-a217-e35ff4c60b68
+		summarizeBy: none
+		sortByColumn: 'Fiscal Month Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR(dim_date[Date])
+		formatString: 0
+		lineageTag: e8574500-8103-4bc7-8d99-4ca7871d261c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month No' = MONTH(dim_date[Date])
+		formatString: 0
+		lineageTag: dde68d5c-c057-4c5c-8896-8747dc2590ef
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year' =
+			
+			VAR CurrentYear = YEAR(Dim_Date[Date])
+			VAR CurrentMonth = MONTH(Dim_Date[Date])
+			VAR FYStartYear = IF(CurrentMonth >= 4, CurrentYear, CurrentYear - 1)
+			RETURN
+			FYStartYear & "-" & RIGHT(FYStartYear + 1, 2)
+		dataType: string
+		lineageTag: d95ecc98-6821-4d22-8cbd-dc54c6844846
+		summarizeBy: none
+		sortByColumn: 'Sort column'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year (FY)' =
+			
+			IF(MONTH(Dim_Date[Date]) >= 4, YEAR(Dim_Date[Date]) + 1, YEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: a46f67e8-544e-4b72-abc7-93b950306a2e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort column' =
+			
+			VAR CurrentYear = YEAR(Dim_Date[Date])
+			VAR CurrentMonth = MONTH(Dim_Date[Date])
+			VAR FYStartYear = IF(CurrentMonth >= 4, CurrentYear, CurrentYear - 1)
+			RETURN
+			FYStartYear & RIGHT(FYStartYear + 1, 2)
+		lineageTag: 19d68d7a-85ad-4e6c-8c03-6d92961bf451
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Month Sort' = ```
+			SWITCH(TRUE(),
+			                    Dim_Date[Month No] = 4,1,
+			                    Dim_Date[Month No] = 5,2,
+			                    Dim_Date[Month No] = 6,3,
+			                    Dim_Date[Month No] = 7,4,
+			                    Dim_Date[Month No] = 8,5,
+			                    Dim_Date[Month No] = 9,6,
+			                    Dim_Date[Month No] = 10,7,
+			                    Dim_Date[Month No] = 11,8,
+			                    Dim_Date[Month No] = 12,9,
+			                    Dim_Date[Month No] = 1,10,
+			                    Dim_Date[Month No] = 2,11,
+			                    Dim_Date[Month No] = 3,12)
+			
+			
+			```
+		formatString: 0
+		lineageTag: 99233f5d-c671-431b-a978-032ebc8a0df1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month-YY = CONCATENATE(CONCATENATE(Dim_Date[Month Name],"-") ,RIGHT(YEAR(Dim_Date[Date]),2))
+		lineageTag: ad63ecb2-6bf4-42fd-8950-77606744588c
+		summarizeBy: none
+		sortByColumn: 'Fiscal Month Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = calculated
+		mode: import
+		source = CALENDAR([Min Date],[Invoice Max Date])
+
+	annotation PBI_Id = e128058fa08146ee99b92b27f08cdf9e
+

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "df6d9b00d1ec9113c4db",
+  "position": {
+    "x": 372.5,
+    "y": 0,
+    "z": 0,
+    "height": 55,
+    "width": 642.5,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "SHYAM HONDA SALES DASHBOARD (INDORE)",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "inherit",
+                      "fontSize": "20pt",
+                      "color": "#d83939"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "d41f5594ea2d7e2d0518",
+  "displayName": "Service Summary",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "5fbd5c32086d1d2bc640",
+      "target": "4437c391020e08e795e2",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e1f93e04fe3b8b6b63eb",
+      "target": "9d2f4d1c1c4c89264f4d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e1f93e04fe3b8b6b63eb",
+      "target": "ae7b8caccb9a1fca5a3e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e1f93e04fe3b8b6b63eb",
+      "target": "5cd4a4f1c5a6b55fa2a4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e1f93e04fe3b8b6b63eb",
+      "target": "29710f5cbececbdaa68a",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e1f93e04fe3b8b6b63eb",
+      "target": "c4e450fc363b8a0b3bb0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e1f93e04fe3b8b6b63eb",
+      "target": "51bb254b1e28a5866bb7",
+      "type": "NoFilter"
+    }
+  ]
+}

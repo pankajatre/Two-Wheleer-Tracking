@@ -1,0 +1,21 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "4bd75365a35c0ccff1ca",
+  "displayName": "Enquiry Vs Retail",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "pageBinding": {
+    "name": "20964f0b9b63a736640e",
+    "type": "Default",
+    "parameters": [],
+    "referenceScope": "CrossReport"
+  },
+  "visualInteractions": [
+    {
+      "source": "34513a2c19ea3aa0e73b",
+      "target": "665dc62e106a0415eb0c",
+      "type": "NoFilter"
+    }
+  ]
+}

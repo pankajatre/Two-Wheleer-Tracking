@@ -1,0 +1,114 @@
+table 'Service Convertion'
+	lineageTag: 9179306b-d3a8-400a-9149-7bfd986db296
+
+	measure 'YTD Service Conversation %' = DIVIDE([YTD Serviced Chassis],[Total Vehicles 2.0(Running Total)])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cd9d7662-7e34-424b-8a69-ad35bdea67ce
+
+	measure 'LYTD Service Conversation' = DIVIDE([SMPL YTD Serviced Chassis], [SMPL Total Vehicles])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: de595e82-6673-43f8-a49e-5317e9bd3f9a
+
+	measure 'Delta Service Conversation YTD - LYTD' = [YTD Service Conversation %] - [LYTD Service Conversation]
+		lineageTag: 0bac4b7e-2c00-4892-be48-6ea07672f367
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Delta Service Conversation mTD - LMTD' = [MTD Service Conversation %] - [LMTD Service Conversation %]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 620667ec-a79f-41ba-976f-fbb17a508273
+
+	measure 'MTD Service Conversation %' = DIVIDE([MTD Serviced Chassis],[Total Vehicles 2.0(Running Total)])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 78006239-789d-48ff-8a16-56e2671ca1fe
+
+	measure 'LMTD Service Conversation %' =
+			DIVIDE(
+			                                    [LMTD Serviced Chassis],
+			                                    CALCULATE([Total Vehicles 2.0(Running Total)],
+			                                                DATEADD(Dim_Date[Date],-1,MONTH))
+			                                    )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8c0729fe-cf2c-4dcf-8587-719a5475a599
+
+	measure 'Sales to Paid Service Conversion %' =
+			
+			VAR SoldVehicles =
+			    CALCULATETABLE(
+			        VALUES('Fact Sales Org Input'[Frame])
+			    )
+			
+			VAR ServicedVehicles =
+			    CALCULATETABLE(
+			        VALUES('Fact Service Raw'[Frame_Number]),
+			        NOT'Fact Service Raw'[Service_Type] in {"Free 01","Free 02","Free 02"}
+			    )
+			
+			VAR ConvertedVehicles =
+			    COUNTROWS(
+			        INTERSECT(
+			            SoldVehicles,
+			            ServicedVehicles
+			        )
+			    )
+			
+			RETURN
+			DIVIDE(
+			    ConvertedVehicles,
+			    COUNTROWS(SoldVehicles)
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e943053b-2224-4d57-a92f-76ed273561e3
+
+	measure 'SMPL Sales to Paid Service Conversion %' = CALCULATE([Sales to Paid Service Conversion %] , SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c0e7f539-ba01-4b3f-83c7-31a2b030f670
+
+	measure 'Sales to Free Service Conversion %' =
+			
+			VAR SoldVehicles =
+			    CALCULATETABLE(
+			        VALUES('Fact Sales Org Input'[Frame])
+			    )
+			
+			VAR ServicedVehicles =
+			    CALCULATETABLE(
+			        VALUES('Fact Service Raw'[Frame_Number]),
+			        'Fact Service Raw'[Service_Type] in {"Free 01","Free 02","Free 02"}
+			    )
+			
+			VAR ConvertedVehicles =
+			    COUNTROWS(
+			        INTERSECT(
+			            SoldVehicles,
+			            ServicedVehicles
+			        )
+			    )
+			
+			RETURN
+			DIVIDE(
+			    ConvertedVehicles,
+			    COUNTROWS(SoldVehicles)
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: db955fb6-4c97-44bf-81d2-33f2f7cac29f
+
+	measure 'SMPL Sales to Free Service Conversion %' = CALCULATE([Sales to Free Service Conversion %], SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 29d18169-64c7-458b-8d62-2b3bdfa797ef
+
+	partition 'Service Convertion' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

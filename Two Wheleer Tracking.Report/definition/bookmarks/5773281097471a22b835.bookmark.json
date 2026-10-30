@@ -1,0 +1,2085 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Service MoM Graph",
+  "name": "5773281097471a22b835",
+  "options": {
+    "targetVisualNames": []
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "d41f5594ea2d7e2d0518",
+    "sections": {
+      "d41f5594ea2d7e2d0518": {
+        "visualContainers": {
+          "63685d7b981e233c8aa2": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {}
+            }
+          },
+          "b4e84feb70587c3d0652": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "5fbd5c32086d1d2bc640": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "9f6dd3e62a317b975c55",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "7182018e253009180ace",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Fiscal Year"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "d",
+                                "Entity": "Dim_Date",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "d"
+                                            }
+                                          },
+                                          "Property": "Fiscal Year"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'2026-27'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "startDate": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "datetime'2027-01-01T00:00:00'"
+                            }
+                          }
+                        },
+                        "endDate": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "datetime'2027-05-26T00:00:00'"
+                            }
+                          }
+                        },
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Fiscal Year"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "c0a92bc064b349843850": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "260966a7b69009173952",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "Dim Location",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Not": {
+                            "Expression": {
+                              "In": {
+                                "Expressions": [
+                                  {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "d"
+                                        }
+                                      },
+                                      "Property": "Location"
+                                    }
+                                  }
+                                ],
+                                "Values": [
+                                  [
+                                    {
+                                      "Literal": {
+                                        "Value": "null"
+                                      }
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Location"
+                        }
+                      },
+                      "Property": "Location"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Location"
+                        }
+                      },
+                      "Property": "Location"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "b8229aa780581ab94230": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "08f509510bcc50b09e97",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "Dim Model",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Not": {
+                            "Expression": {
+                              "In": {
+                                "Expressions": [
+                                  {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "d"
+                                        }
+                                      },
+                                      "Property": "MODEL"
+                                    }
+                                  }
+                                ],
+                                "Values": [
+                                  [
+                                    {
+                                      "Literal": {
+                                        "Value": "null"
+                                      }
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Model"
+                        }
+                      },
+                      "Property": "MODEL"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Model"
+                        }
+                      },
+                      "Property": "MODEL"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "01172bb9c1b72a527808": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "4d974fac4ec11c06241e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "Total Vehicles 2.0(Running Total)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "Total Vehicles 2.0(Running Total)"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "02d31723406e10e9529b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "717fc0556b27430080ae",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "04 Time Inteligence"
+                        }
+                      },
+                      "Property": "YTD Serviced Chassis"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "04 Time Inteligence"
+                        }
+                      },
+                      "Property": "YTD Serviced Chassis"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "d041f362db080ee74d01": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "87e23dde50cedebd3919",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "YTD Total Service"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "YTD Total Service"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "6c751c90546743aa7259": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "c2250cc7a967b14e00d6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "03 Paid Service"
+                        }
+                      },
+                      "Property": "YTD Paid Service"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "03 Paid Service"
+                        }
+                      },
+                      "Property": "Paid Service"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "dddd8c1be7d1106ba602": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "516a35fec18e0654c0d5",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "02 Free Service"
+                        }
+                      },
+                      "Property": "YTD Free Service"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "02 Free Service"
+                        }
+                      },
+                      "Property": "YTD Free Service"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "9bd682d3d77433e7a9d1": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "cc19a53356bde93a54b0": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "a0164303b228aaa739ad": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "8a939945b6d89c0d85e6": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "76d59f46053b6b7ae315",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "04 Time Inteligence"
+                        }
+                      },
+                      "Property": "MTD Serviced Chassis"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "04 Time Inteligence"
+                        }
+                      },
+                      "Property": "MTD Serviced Chassis"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "d44d5b6c148ec51a4b16": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f31eeb2f61bc2eb5de20",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "05 Growth"
+                        }
+                      },
+                      "Property": "Service Growth MTDvsLMTD %"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ab1a40800c408c495411",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "04 Time Inteligence"
+                        }
+                      },
+                      "Property": "MTD SERVICE"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "412a2a404bd27be5c38e",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month-YY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineStackedColumnComboChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month-YY"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "7fb22f47c78301ade399": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "b2fc6f1514b2916315eb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "04 Time Inteligence"
+                        }
+                      },
+                      "Property": "SMPL Total Service"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a9dc18da12a5c67b3a3c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "05 Growth"
+                        }
+                      },
+                      "Property": "Total Service Growth %"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1b532cc15865712c65d2",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "Total Service"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3529cea622b2476c741c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month-YY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineStackedColumnComboChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month-YY"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "f57e968b8023610a9194": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "b448f2a629e7d0bba0cc",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Date"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b4e516a060484060592b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Service Type"
+                        }
+                      },
+                      "Property": "Service_Type"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "671e71045795a862b260",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "04 Time Inteligence"
+                        }
+                      },
+                      "Property": "MTD SERVICE"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4af5c980e2c81540a371",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month-YY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Columns": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month-YY"
+                    }
+                  }
+                ],
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Service Type"
+                        }
+                      },
+                      "Property": "Service_Type"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "63796d0d993c07a5e726": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "314da73507d12c16a737",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "Total Service"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "70f1f06a231002708b97",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Service Type"
+                        }
+                      },
+                      "Property": "Service_Type"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "donutChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Service Type"
+                        }
+                      },
+                      "Property": "Service_Type"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "4437c391020e08e795e2": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "4c311c2334e6dc50c7db",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "05 Growth"
+                        }
+                      },
+                      "Property": "Vechicle Growth YTDvsLYTD %"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "49f1c616017a9bc99421",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "Total Service Conversation %"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "081568980c30dddc17a1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "06 Delta"
+                        }
+                      },
+                      "Property": "SMPL Service Growth delta %"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "7ad661bd704765b43c21",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "04 Time Inteligence"
+                        }
+                      },
+                      "Property": "Service Till Date"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "99950dd473842e37491b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "Total Vehicles New"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "23a5aebe1ae664186623",
+                  "type": "TopN",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "dee983545e259b018ba9",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "Total Service"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "18a8cd903eba326c3de3": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "bad1701be0eaa10bc740": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "55a8c30232d505125499",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "01 Base Measure"
+                        }
+                      },
+                      "Property": "Refresh Date Source"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "11a9c9016270760e8443": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "c385434ad69b03851b8b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "dda44778c07e43b2bd12",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "757c87907a1d5e518743",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "756437ba7fdf70b19a0e": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "286baa89dc86381e194d": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "671d51ff73d78c65e621": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "73add6f00027c49a022c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parts Revenue"
+                        }
+                      },
+                      "Property": "YTD Parts Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ac2bf1fd28cb402a035e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parts Revenue"
+                        }
+                      },
+                      "Property": "YTD Per Vehicle Parts Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "5d9fa20e806983a74f9e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "e3e874b90760314a7ca9",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parts Revenue"
+                        }
+                      },
+                      "Property": "MTD Parts Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "bdbb42ac4e435ba6aede",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parts Revenue"
+                        }
+                      },
+                      "Property": "MTD Per Vehicle Parts Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "5dc0c456736fc9eda40d": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "83fdddd0c4abb900020c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lubes Revenue"
+                        }
+                      },
+                      "Property": "MTD Lubes Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "8a8158bf5b6749cb63a4",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lubes Revenue"
+                        }
+                      },
+                      "Property": "MTD Per Vehicle Lubes Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "fa9bba6d50e0e490b2c4": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "04203db96a8eb2a05a5d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lubes Revenue"
+                        }
+                      },
+                      "Property": "YTD Lubes Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f0193b3bb710e0100c87",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lubes Revenue"
+                        }
+                      },
+                      "Property": "YTD Per Vehicle Lubes Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "4bf2daa314ca94aeef60": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "37aac612dd124300c7c7",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "06a754bb66a1bab0ed27",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parts Revenue"
+                        }
+                      },
+                      "Property": "MTD Per Vehicle Parts Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "areaChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "4c0e4f54153692a8bdde": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "c5f61e32ee6730b6e009",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "fbcb2a9468b90b81bc45",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lubes Revenue"
+                        }
+                      },
+                      "Property": "MTD Per Vehicle Lubes Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "areaChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "9d2f4d1c1c4c89264f4d": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "2a11614022539e55c150",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Job Card"
+                        }
+                      },
+                      "Property": "Total Job Card"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9cd50524316267ce6896",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "AMC"
+                        }
+                      },
+                      "Property": "Total AMC"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "17f16aeb1ed08b14b03e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "AMC"
+                        }
+                      },
+                      "Property": "Total AMC Convertion"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "multiRowCard",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "ae7b8caccb9a1fca5a3e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "b5535eb7c32351eb6e73",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Job Card"
+                        }
+                      },
+                      "Property": "Total Job Card"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "7ba9c810420d0c18bb8b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EW+"
+                        }
+                      },
+                      "Property": "Total EW+"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "6cc94212c5ebb84c1ada",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EW+"
+                        }
+                      },
+                      "Property": "Total EW + Convertion"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "multiRowCard",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "5cd4a4f1c5a6b55fa2a4": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "4f4afb0700356aee7cc5",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EW+"
+                        }
+                      },
+                      "Property": "YTD EW+"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "29710f5cbececbdaa68a": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ea0c09d2e099ddaaab4b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "AMC"
+                        }
+                      },
+                      "Property": "YTD AMC"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "c4e450fc363b8a0b3bb0": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "9cfc03ded2ddb82658ad",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "AMC"
+                        }
+                      },
+                      "Property": "MTD AMC"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "51bb254b1e28a5866bb7": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "05dfd324a41d340734bb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EW+"
+                        }
+                      },
+                      "Property": "MTD EW+"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "91b3584a548c5d9b0415": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "53de08e6d89e3077e3a4",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "bb8dda9cc6bb7141a9c6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EW+"
+                        }
+                      },
+                      "Property": "MTD EW+"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3f15e2c3b4011894624c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "EW+"
+                        }
+                      },
+                      "Property": "LYMTD EW+"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineStackedColumnComboChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "20d0f94f5a81c4bd78a9": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f6d75540490d210be26c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a569b362362719e52820",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "AMC"
+                        }
+                      },
+                      "Property": "MTD AMC"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "46c83d2ba04d43404ecc",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "AMC"
+                        }
+                      },
+                      "Property": "LYMTD AMC"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineStackedColumnComboChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "670bd2d9d3914d9c797c": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "e1f93e04fe3b8b6b63eb": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "08f509510bcc50b09e97",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Model"
+                        }
+                      },
+                      "Property": "MODEL"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "1a91edf3eabd507c4532",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Service Type"
+                        }
+                      },
+                      "Property": "Service_Type"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim Service Type"
+                        }
+                      },
+                      "Property": "Service_Type"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "d53f03fa72ed5594ecb3": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "9902aa103217c06a9159",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Labour Revenue"
+                        }
+                      },
+                      "Property": "YTD Labour Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b51a856fe1d8012c0207",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Labour Revenue"
+                        }
+                      },
+                      "Property": "YTD Per Vehicle Labour Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "04b3064707f7eeb244cd": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f652525015a00c31d146",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Labour Revenue"
+                        }
+                      },
+                      "Property": "MTD LABOUR REVENUE"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3714d0211e840006688e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Labour Revenue"
+                        }
+                      },
+                      "Property": "MTD Per Vehicle Labour Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "84406291cb004485cea6": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "19371c5766c0696b26b7",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ee5f80cddcad51056d2b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Labour Revenue"
+                        }
+                      },
+                      "Property": "MTD Per Vehicle Labour Revenue"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "areaChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Date"
+                        }
+                      },
+                      "Property": "Month Name"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "true"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

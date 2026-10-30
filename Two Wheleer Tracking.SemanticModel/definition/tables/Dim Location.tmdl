@@ -1,0 +1,32 @@
+table 'Dim Location'
+	lineageTag: 5a702219-2b71-4aa3-93c3-1541e9348d69
+
+	column Network_Code
+		dataType: string
+		lineageTag: 7f1c7ea4-7225-42a2-b36c-b35f18f111c4
+		summarizeBy: none
+		sourceColumn: Network_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		lineageTag: 26fea439-d86e-483a-a8a5-019f6e824c43
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Location' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8g0wMDIwMDBW0lHy8FeK1YGIODmCRbwTcxLzMhX8EtMTixByTmC54MS88lSEqCNER1BiKULIGSwUlphZnJGYkwkXD4YY4JufkVmi4Jtfkl9UjNDjCpZzT8xLyYBbHAsA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Network_Code = _t, Location = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Network_Code", type text}, {"Location", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

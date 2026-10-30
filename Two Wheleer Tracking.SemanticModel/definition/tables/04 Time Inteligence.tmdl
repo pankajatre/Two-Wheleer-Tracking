@@ -1,0 +1,172 @@
+table '04 Time Inteligence'
+	lineageTag: 6c7b6d1d-54b1-4305-8764-c0618a28e826
+
+	measure 'LMTD SERVICE' = CALCULATE([MTD SERVICE],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: 9373fe5a-ccd1-4a3f-bd85-fbee4fd2a30e
+
+		changedProperty = IsHidden
+
+	measure 'MTD SERVICE' = TOTALMTD([Total Service],Dim_Date[Date])
+		formatString: 0
+		lineageTag: 41238633-3bf0-4fb7-ab19-cd4355841775
+
+		changedProperty = IsHidden
+
+	measure 'SMPL Total Service' = CALCULATE([Total Service],SAMEPERIODLASTYEAR(dim_date[Date]))
+		formatString: 0
+		lineageTag: 6b34eb43-6671-467c-ab0d-9c1f26b5f59e
+
+		changedProperty = IsHidden
+
+	measure 'Service till same day(MTD_TLD)' =
+			
+			var cutoffday =
+			  DAY (
+			    CALCULATE(MAX('Fact Service Raw'[Job_Card_Closed_Date]),
+			            ALL(Dim_Date)))
+			          RETURN
+			        CALCULATE(
+			            COUNTROWS('Fact Service Raw'),
+			            FILTER(Dim_Date,
+			                DAY(Dim_Date[Date])<=cutoffday
+			            ))
+		formatString: 0
+		lineageTag: 8f625cf3-6d25-4379-89b0-05d0ede132dd
+
+		changedProperty = IsHidden
+
+	measure 'SMPL Service Till Same Day(MTD_TLD)' = CALCULATE([Service till same day(MTD_TLD)],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: 2fcdeb6a-e368-4fef-89d1-62d5777e2a57
+
+		changedProperty = IsHidden
+
+	measure 'SMPL Total Vehicles' = CALCULATE([Total Vehicles 2.0(Running Total)],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: c6cd2522-a6cf-43b8-a417-841331be9839
+
+		changedProperty = IsHidden
+
+	measure 'LMTD Service till same day(MTD_TLD)' = CALCULATE([Service till same day(MTD_TLD)],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: fac20fd3-13af-4cc9-84c8-3b49ebfaae12
+
+		changedProperty = IsHidden
+
+	measure 'Service Till Date' =
+			
+			VAR MaxDataDate =
+			    CALCULATE (
+			        MAX ( 'Fact Service Raw'[Job_Card_Closed_Date] ),
+			        ALL ( 'Fact Service Raw'))
+			
+			VAR SelectedYear =
+			    SELECTEDVALUE ( Dim_Date[Year] )
+			
+			VAR CutoffDate =
+			    DATE (
+			        SelectedYear,
+			        MONTH ( MaxDataDate ),
+			        DAY ( MaxDataDate )
+			    )
+			
+			RETURN
+			CALCULATE (
+			    [Total Service],
+			    FILTER (
+			        ALL ( Dim_Date ),
+			        Dim_Date[Year (FY)]  = SelectedYear
+			           && Dim_Date[Date] = CutoffDate
+			    )
+			)
+		formatString: 0
+		lineageTag: 84639fa0-2804-4d76-8c85-fbdd90272b91
+
+		changedProperty = IsHidden
+
+	measure 'SMPL Paid Service' = CALCULATE('03 Paid Service'[Paid Service],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: 9a02b54d-a379-4608-96d4-9bac9cb2fcdb
+
+		changedProperty = IsHidden
+
+	measure 'SMPL Total Service Revenue' = CALCULATE([Total Service Revenue],SAMEPERIODLASTYEAR(dim_date[Date]))
+		lineageTag: 882237e0-4627-4127-a08a-8ac1ec686c2c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'SMPL Labour Revenue' = CALCULATE([Labour Excl GST],SAMEPERIODLASTYEAR(dim_date[Date]))
+		lineageTag: 84aaba79-bd0b-495b-8edb-774683dccb7a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'SMPL Total Lubes Revenue' = CALCULATE([Total Lubes Revenue],SAMEPERIODLASTYEAR(dim_date[Date]))
+		lineageTag: c52fe9eb-109a-43ed-9693-d9f1cc4eb6bf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MTD EW PLUS' = TOTALMTD([Total EW PLUS],Dim_Date[Date])
+		formatString: 0
+		lineageTag: f8a26f85-78ed-42fc-989c-b05446fcff34
+
+	measure 'LMTD EW PLUS' = CALCULATE([MTD EW PLUS],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: 19cd1aec-e527-4d5f-822c-b1737fbc6207
+
+	measure 'SMPL EW PLUS' = CALCULATE([Total EW PLUS],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: fda74eda-d570-4d61-84b6-3391045c095e
+
+	measure Measure
+		lineageTag: 766529aa-f248-4da4-8954-d86895b1abc9
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'MTD Serviced Chassis' = ```
+			
+			TOTALMTD(
+			    DISTINCTCOUNT('Fact Service Raw'[Frame_Number]),
+			    Dim_Date[Date]
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 9d4a0eff-538f-4d65-80ac-fa2a918d9d64
+
+	measure 'YTD Serviced Chassis' =
+			
+			TOTALYTD(
+			    DISTINCTCOUNT('Fact Service Raw'[Frame_Number]),
+			    Dim_Date[Date],"31/3"
+			    )
+		formatString: 0
+		lineageTag: df6ca727-4f13-4e51-9b6d-965b674573aa
+
+	measure 'SMPL YTD Serviced Chassis' = CALCULATE([YTD Serviced Chassis],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: 5a26608f-35db-4049-a319-b7d648a0288b
+
+	measure 'LMTD Serviced Chassis' = CALCULATE([MTD Serviced Chassis], DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: aed80785-d8c6-4c91-9455-88344897b678
+
+	measure 'LY MTD SERVICE' = CALCULATE([MTD SERVICE],DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: 135ea05a-4ab7-4a2d-9d3c-16a94fd15e48
+
+	partition '04 Time Inteligence' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

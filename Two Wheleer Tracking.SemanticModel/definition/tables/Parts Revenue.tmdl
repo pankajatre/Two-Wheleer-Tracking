@@ -1,0 +1,116 @@
+table 'Parts Revenue'
+	lineageTag: 4c5086f0-1c39-4d90-984b-1438338c302c
+
+	measure 'Total Parts Revenue' = SUM('Fact Service Raw'[Parts_Revenue])
+		formatString: 0
+		lineageTag: 337d5f99-df75-4a0e-848b-9e94a972c00b
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'MTD Parts Revenue' = TOTALMTD([Total Parts Revenue],Dim_Date[Date])
+		lineageTag: 4d81aaf2-6743-43cf-ad0a-0317c581b013
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'PARTS REVENUE MTDvsLMTD %' = DIVIDE([MTD Parts Revenue],[LMTD Parts Revenue])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b06f3f4a-2d80-43ad-a32a-a985f8107c10
+
+	measure 'LMTD Parts Revenue' = CALCULATE([MTD Parts Revenue],DATEADD(Dim_Date[Date],-1,MONTH))
+		lineageTag: 2af56bf8-6853-4d36-96b3-c4786a7752fc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'SMPL Total Parts Revenue' = CALCULATE([Total Parts Revenue],SAMEPERIODLASTYEAR(dim_date[Date]))
+		lineageTag: ab7f40ef-5a1c-48c9-b6fc-bb684a72def2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD Parts Revenue' = TOTALYTD([Total Parts Revenue],Dim_Date[Date],"31/3")
+		lineageTag: 475d2f89-8ace-4a78-a47f-2d9b9fc04251
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LYTD Parts Revenue' = CALCULATE( [YTD Parts Revenue],DATESYTD(DATEADD(Dim_Date[Date],-1,YEAR)))
+		lineageTag: 7c712c8f-234f-41fd-a960-19fae94c4d8a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Parts Revenue Growth YTDvsLYTD' = DIVIDE([YTD Parts Revenue],[LYTD Parts Revenue])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 09c3902a-954a-4209-86ea-42d90662c9b7
+
+	measure 'Parts Revenue Growth MTDvsLMTD TLD' = DIVIDE([MTD Parts Revenue],[LMTD Parts Revenue])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c677cc14-90f5-422d-8551-2a2335b7dc45
+
+	measure 'LMTD TLD Parts Revenue' = ```
+			
+			VAR CutoffDay =
+			    DAY(
+			        CALCULATE(
+			            MAX('Fact Service Raw'[Job_Card_Closed_Date]),
+			            ALL(Dim_Date)
+			        )
+			    )
+			VAR LastDates =
+			    MAX(Dim_Date[Date])
+			RETURN
+			CALCULATE(
+			    [Total Parts Revenue],
+			    DATESBETWEEN(
+			        Dim_Date[Date],
+			        EOMONTH(LastDates,-2)+1,
+			        DATE(
+			            YEAR(EDATE(LastDates,-1)),
+			            MONTH(EDATE(LastDates,-1)),
+			            CutoffDay
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: a855af83-4f43-48cc-96ab-06ad9edced93
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD Per Vehicle Parts Revenue' = DIVIDE([YTD Parts Revenue],[YTD Job Card])
+		lineageTag: 444313db-ab2d-4ba7-8d80-9934507d3b8d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MTD Per Vehicle Parts Revenue' = DIVIDE([MTD Parts Revenue],[MTD Job Card])
+		lineageTag: 8a90220b-9137-48cf-8666-2d147248461b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LYTD Per Vehicle Parts Revenue' = DIVIDE([LYTD Parts Revenue],[LYTD Job Card])
+		lineageTag: 9a2535e4-ed3c-4d53-924b-09ad58444545
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LMTD TLD Per Vehicle Parts Revenue' = DIVIDE([LMTD TLD Parts Revenue],[LMTD TLD Job Card])
+		lineageTag: 3d9325f6-93c5-4ee5-a842-ae10cecb2787
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LMTD Per Vehicle Parts Revenue' = DIVIDE([LMTD Parts Revenue],[LMTD Job Card])
+		lineageTag: 11246063-d074-4fb8-92f5-532d94b27ef2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Parts Revenue' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

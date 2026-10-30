@@ -1,0 +1,554 @@
+table 'Dim Chassis'
+	lineageTag: 814a44b4-e13e-488e-a97a-cf02e95e54b5
+
+	column Frame_Number
+		dataType: string
+		lineageTag: a507b83e-1269-4994-bd99-fc826029ecf3
+		summarizeBy: none
+		sourceColumn: Frame_Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Service Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 654ca32d-c671-4b77-b24b-664f7566166b
+		summarizeBy: none
+		sourceColumn: First Service Date
+
+		variation Variation
+			isDefault
+			relationship: 8c7e07aa-fda7-43bb-8734-fe54cc181998
+			defaultHierarchy: LocalDateTable_95101315-61e4-419d-872c-37dd4c1a1fed.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Last Service Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f0d605d3-882f-4e56-accd-11fd1e6a6ded
+		summarizeBy: none
+		sourceColumn: Last Service Date
+
+		variation Variation
+			isDefault
+			relationship: 431bac40-cb4e-4969-b933-e439a075a9f0
+			defaultHierarchy: LocalDateTable_54a831a3-022d-4cf0-a74d-47cdd3b5b27a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Total Paid Cnt'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fb5f56c-d679-4b20-bd77-429f74762064
+		summarizeBy: sum
+		sourceColumn: Total Paid Cnt
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Service Cnt'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b0de9db-1dc3-4703-8d4e-05ff8f68f534
+		summarizeBy: sum
+		sourceColumn: Total Service Cnt
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Service Type'
+		dataType: string
+		lineageTag: c8ea177e-d5fc-43d3-aa26-91eaffd9ae72
+		summarizeBy: none
+		sourceColumn: Last Service Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Name
+		dataType: string
+		lineageTag: 38a8630c-22f0-44d6-8a4c-b419606365f7
+		summarizeBy: none
+		sourceColumn: Customer_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Mobile
+		dataType: string
+		lineageTag: 877fb58e-2610-44aa-86fd-be62a13cc5b5
+		summarizeBy: none
+		sourceColumn: Customer_Mobile
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Name_Service
+		dataType: string
+		lineageTag: 53d0eaef-7472-4488-bfec-4799213645e6
+		summarizeBy: none
+		sourceColumn: Model_Name_Service
+
+		annotation SummarizationSetBy = Automatic
+
+	column Registration_Number
+		dataType: string
+		lineageTag: 645b200f-91b0-4689-b269-c16bf46a1481
+		summarizeBy: none
+		sourceColumn: Registration_Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Permanent_Reg_No
+		dataType: string
+		lineageTag: 5fe1287e-10d7-413f-90fa-39394384ebce
+		summarizeBy: none
+		sourceColumn: Permanent_Reg_No
+
+		annotation SummarizationSetBy = Automatic
+
+	column Invoice_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2af3c8b9-7167-490f-aaeb-4f0a069c7896
+		summarizeBy: none
+		sourceColumn: Invoice_Date
+
+		variation Variation
+			isDefault
+			relationship: bdb9a5f8-0aeb-4246-b955-055bd1d77073
+			defaultHierarchy: LocalDateTable_7b7be6a4-8466-444f-9a46-4eaae287eb2f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Mobile_Phone
+		dataType: string
+		lineageTag: 34d4f47d-7d6a-4628-bafa-93264d0796c6
+		summarizeBy: none
+		sourceColumn: Mobile_Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column Address
+		dataType: string
+		lineageTag: efc8cc4d-02fa-409c-b5bd-eee45517c41e
+		summarizeBy: none
+		sourceColumn: Address
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Name_Sales
+		dataType: string
+		lineageTag: d0f28d02-7108-40b2-ae23-54a9b68eef71
+		summarizeBy: none
+		sourceColumn: Model_Name_Sales
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_First_Name
+		dataType: string
+		lineageTag: bb5dd14c-3d53-4361-a452-1a239c5f65a8
+		summarizeBy: none
+		sourceColumn: Customer_First_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Colony
+		dataType: string
+		lineageTag: ff1d5bab-aeda-4025-8df3-70301ad84984
+		summarizeBy: none
+		sourceColumn: Colony
+
+		annotation SummarizationSetBy = Automatic
+
+	column Near_by_Centre
+		dataType: string
+		lineageTag: 785a2883-474a-471e-b2b5-951cec12cbdf
+		summarizeBy: none
+		sourceColumn: Near_by_Centre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Bucket' =
+			SWITCH(TRUE(),
+			'Dim Chassis'[Vechele Age Month] <= 12,"0-1 year",
+			'Dim Chassis'[Vechele Age Month] > 12 && 'Dim Chassis'[Vechele Age Month] <= 24,"1-2 year",
+			'Dim Chassis'[Vechele Age Month] > 24 && 'Dim Chassis'[Vechele Age Month] <= 36,"2-3 year",
+			'Dim Chassis'[Vechele Age Month] > 36 && 'Dim Chassis'[Vechele Age Month] <= 48,"3-4 year",
+			'Dim Chassis'[Vechele Age Month] > 48 && 'Dim Chassis'[Vechele Age Month] <= 60,"4-5 year",
+			'Dim Chassis'[Vechele Age Month] > 60 && 'Dim Chassis'[Vechele Age Month] <= 72,"5-6 year",
+			'Dim Chassis'[Vechele Age Month] > 72 && 'Dim Chassis'[Vechele Age Month] <= 84,"6-7 year",
+			'Dim Chassis'[Vechele Age Month] > 84, "8+ year"
+			)
+		lineageTag: 59bf4056-e8a9-4266-8984-1750077f1b4f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Final Contact' = IF(ISBLANK('Dim Chassis'[Customer_Mobile]),'Dim Chassis'[Mobile_Phone],'Dim Chassis'[Customer_Mobile])
+		lineageTag: f9bc92db-ba47-45d6-9794-f89a6657cc96
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Final Model' = IF(ISBLANK('Dim Chassis'[Model_Name_Service]),'Dim Chassis'[Model_Name_Sales],'Dim Chassis'[Model_Name_Service])
+		lineageTag: e59e5835-2ec2-487f-8d60-4a673f9749c2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First System Login Date' = IF(ISBLANK('Dim Chassis'[Invoice_Date]),'Dim Chassis'[First Service Date],'Dim Chassis'[Invoice_Date])
+		formatString: General Date
+		lineageTag: 00ffb702-976a-45c2-ac63-7b164cea73bf
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 243b9227-2874-4175-a060-5211c7f9da1c
+			defaultHierarchy: LocalDateTable_a277f9a3-c665-48ae-99d4-d83af00bfdc9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LAST ACTIVE' = DATEDIFF('Dim Chassis'[Last Service Date],TODAY(),DAY)
+		formatString: 0
+		lineageTag: d92635fd-9ad4-431a-bc34-afb5378349f6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Name Customer' = IF(ISBLANK('Dim Chassis'[Customer_Name]),'Dim Chassis'[Customer_First_Name],'Dim Chassis'[Customer_Name])
+		lineageTag: 33b7e037-dab3-467f-a6c0-a28948acf907
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Reg Number' = IF(ISBLANK('Dim Chassis'[Registration_Number]),'Dim Chassis'[Permanent_Reg_No],'Dim Chassis'[Registration_Number])
+		lineageTag: c70d19b2-8c7f-413d-a431-1a1c22d32e26
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SERVICE STATUS' = ```
+			
+			 VAR SaleDate = 
+			    'Dim Chassis'[Invoice_Date]
+			
+			VAR LastServiceDate =
+			    'Dim Chassis'[Last Service Date]
+			
+			VAR FirstLoginDate = 
+			    'Dim Chassis'[First System Login Date]
+			
+			VAR LastServiceType =
+			    UPPER(
+			        TRIM(
+			            'Dim Chassis'[Last Service Type]
+			        )
+			    )
+			
+			VAR TotalServiceCount =
+			    COALESCE(
+			        'Dim Chassis'[Total Service Cnt],
+			        0
+			    )
+			
+			VAR PaidServiceCount =
+			    COALESCE(
+			        'Dim Chassis'[Total Paid Cnt],
+			        0
+			    )
+			
+			VAR SaleDays =
+			    DATEDIFF(
+			        SaleDate,
+			        TODAY(),
+			        DAY
+			    )
+			
+			VAR LoginDays =
+			    DATEDIFF(
+			        FirstLoginDate,
+			        TODAY(),
+			        DAY
+			    )   
+			
+			VAR ServiceDays =
+			    IF(
+			        NOT ISBLANK(LastServiceDate),
+			        DATEDIFF(
+			            LastServiceDate,
+			            TODAY(),
+			            DAY
+			        )
+			    )
+				
+				RETURN
+			SWITCH(TRUE(),
+				 /* =====================================================
+			       FIRST FREE SERVICE
+			       ===================================================== */
+			
+			    TotalServiceCount = 0
+			        && SaleDays < 15,
+			        "NEW VEHICLE",
+			
+			    TotalServiceCount = 0
+			        && IF(ISBLANK(SaleDays),LoginDays,SaleDays) >= 15
+			        && IF(ISBLANK(SaleDays),LoginDays,SaleDays) <= 30,
+			        
+			        "CALL FOR FIRST SERVICE",
+			
+			    TotalServiceCount = 0
+			        && IF(ISBLANK(SaleDays),LoginDays,SaleDays) > 30
+			        && IF(ISBLANK(SaleDays),LoginDays,SaleDays) < 155,
+			        "FS MISSED",
+			
+			        /* =====================================================
+			       SECOND FREE SERVICE
+			       ===================================================== */
+			     --ISBLANK('Dim Chassis'[ACTIVE]) &&
+			    TotalServiceCount = 0 
+			        && SaleDays >= 155
+			        && SaleDays <= 180,
+			        "CALL FOR SECOND SERVICE",
+			     --ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    LastServiceType = "FREE 01"
+			        && SaleDays >= 155
+			        && SaleDays <= 180,
+			        "CALL FOR SECOND SERVICE",
+			     --ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    LastServiceType = "FREE 01"
+			        && SaleDays > 180
+			        && SaleDays < 350,
+			        "SS MISSED",
+			    -- ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    TotalServiceCount = 0
+			        && SaleDays > 180
+			        && SaleDays < 350,
+			        "SS MISSED",
+			    
+			        //* =====================================================
+			     --  THIRD FREE SERVICE
+			     --  ===================================================== */
+			    
+			     --ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    TotalServiceCount = 0 
+			        && SaleDays >= 350
+			        && SaleDays <= 365,
+			        "CALL FOR THIRD SERVICE",
+			    -- ISBLANK('Dim Chassis'[ACTIVE])   &&   
+			    LastServiceType = "FREE 02"
+			        && SaleDays >= 350
+			        && SaleDays <= 365,
+			        "CALL FOR THIRD SERVICE",
+			    -- ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    LastServiceType = "FREE 02"
+			        && SaleDays > 365
+			        && SaleDays <= 380,
+			        "TS MISSED",
+			     --ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    TotalServiceCount = 0
+			        && SaleDays > 365
+			        && SaleDays <= 380,
+			        "TS MISSED"
+			        ,
+			  /* =====================================================
+			       PAID SERVICE
+			       ===================================================== */
+			
+			    LastServiceType IN {
+			        "FREE 03",
+			        "PAID",
+			        "REPAIR JOB",
+			        "MINOR",
+			        "GENERAL REPAIRS",
+			        "MINOR REPAIRS"
+			    }
+			        && ServiceDays > 155
+			        && ServiceDays <= 180,
+			        "CALL FOR PAID SERVICE",
+			
+			    LastServiceType IN {
+			        "FREE 03",
+			        "PAID",
+			        "REPAIR JOB",
+			        "MINOR",
+			        "GENERAL REPAIRS",
+			        "MINOR REPAIRS"
+			    }
+			        && ServiceDays > 180
+			        && ServiceDays <= 270,
+			        "PAID MISSED"
+			,
+			  /* =====================================================
+			       NEVER SERVICED - 545+ DAYS
+			       ===================================================== */
+			
+			    TotalServiceCount = 0
+			        && LoginDays > 545, "DEAD",
+			    TotalServiceCount > 0
+			        && ServiceDays > 545, "DEAD",
+			
+			   /* =====================================================
+			       PREVIOUSLY SERVICED BUT 365+ DAYS NO VISIT
+			       ===================================================== */
+			-- WE CAN PROVIDE OFFER THEM
+			
+			   TotalServiceCount = 0
+			        && SaleDays > 380
+			        && SaleDays <= 545,
+			        "NEVER SERVICED",
+			
+			    TotalServiceCount > 0 && TotalServiceCount <=3
+			        && ServiceDays > 365 && ServiceDays <= 545 ,
+			        "INACTIVE FROM 1 YEAR WITH <= 3",
+			    
+			    TotalServiceCount > 3
+			        && ServiceDays > 365 && ServiceDays <= 545 ,
+			        "INACTIVE FROM 1 YEAR WITH >3",
+			
+			    LastServiceType IN {
+			        "FREE 03",
+			        "PAID",
+			        "REPAIR JOB",
+			        "MINOR",
+			        "GENERAL REPAIRS",
+			        "MINOR REPAIRS"} &&
+			  TotalServiceCount > 0
+			        && ServiceDays > 270
+			        && ServiceDays <= 365,
+			        "IN-ACTIVE RECENTLY"    
+			        ,
+			
+			LastServiceType IN {
+			        "FREE 03",
+			        "PAID",
+			        "REPAIR JOB",
+			        "MINOR",
+			        "GENERAL REPAIRS",
+			        "MINOR REPAIRS"
+			    }
+			        && ServiceDays >= 0
+			        && ServiceDays <= 155, "ACTIVE",
+			
+			LastServiceType IN {
+			        "FREE 01",
+			        "FREE 02" } &&
+			ServiceDays >0 && ServiceDays <= 190,"ACTIVE",
+			
+				 /* =====================================================
+			       FIRST FREE SERVICE  ServiceDays 
+			       ===================================================== */
+			
+			    TotalServiceCount = 0
+			        && SaleDays < 15,
+			        "NEW VEHICLE",
+			
+			    TotalServiceCount = 0
+			        && IF(ISBLANK(SaleDays),LoginDays,SaleDays) >= 15
+			        && IF(ISBLANK(SaleDays),LoginDays,SaleDays) <= 30,
+			        
+			        "CALL FOR FIRST SERVICE",
+			
+			    TotalServiceCount = 0
+			        && IF(ISBLANK(SaleDays),LoginDays,SaleDays) > 30
+			        && IF(ISBLANK(SaleDays),LoginDays,SaleDays) < 155,
+			        "FS MISSED",
+			
+			        /* =====================================================
+			       SECOND FREE SERVICE ServiceDays 
+			       ===================================================== */
+			     --ISBLANK('Dim Chassis'[ACTIVE]) &&
+			    TotalServiceCount = 0 
+			        && SaleDays >= 155
+			        && SaleDays <= 180,
+			        "CALL FOR SECOND SERVICE",
+			     --ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    LastServiceType = "FREE 01"
+			        && ServiceDays >= 155
+			        && ServiceDays <= 180,
+			        "CALL FOR SECOND SERVICE",
+			     --ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    LastServiceType = "FREE 01"
+			        && ServiceDays > 180
+			        && ServiceDays <= 365,
+			        "SS MISSED",
+			     
+			    
+			        //* =====================================================
+			     --  THIRD FREE SERVICE ServiceDays 
+			     --  ===================================================== */
+			    
+			     --ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    TotalServiceCount = 0 
+			        && SaleDays >= 350
+			        && SaleDays <= 365,
+			        "CALL FOR THIRD SERVICE",
+			     --ISBLANK('Dim Chassis'[ACTIVE])   &&   
+			    LastServiceType = "FREE 02"
+			        && ServiceDays >= 180
+			        && ServiceDays <= 365,
+			        "CALL FOR THIRD SERVICE",
+			    -- ISBLANK('Dim Chassis'[ACTIVE])   &&
+			    LastServiceType = "FREE 02"
+			        && ServiceDays > 365
+			        && ServiceDays <= 380,
+			        "TS MISSED"
+			        )
+			
+			```
+		lineageTag: 8eeed65f-baf7-4eb0-922c-1b536d4425a2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vechele Age Month' = DATEDIFF('Dim Chassis'[First System Login Date],TODAY(),MONTH)
+		formatString: 0
+		lineageTag: 813b8dd9-1605-4934-a141-4c0615bee053
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Assigned_To_DSE_Name
+		dataType: string
+		lineageTag: 73b6c47c-014d-494a-9032-691cab75a2fa
+		summarizeBy: none
+		sourceColumn: Assigned_To_DSE_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Chassis' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-M0KE14I\MSSQLSERVERSHYAM"),
+				    Honda = Source{[Name="Honda"]}[Data],
+				    dbo_Vehicle_Service_Tracking = Honda{[Schema="dbo",Item="Vehicle_Service_Tracking"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(dbo_Vehicle_Service_Tracking,{{"Invoice_Date", type date}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type",{{"Address", Text.Trim, type text}}),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Trimmed Text",{{"Address", Text.Proper, type text}}),
+				    #"Added Custom" = Table.AddColumn(#"Capitalized Each Word", "Colony", each let
+				    AddressText = Text.Upper(Text.From([Address])),
+				    Matches =
+				        List.Select(
+				            #"Colony List",
+				            each Text.Contains(
+				                AddressText,
+				                Text.Upper(Text.From(_)),
+				                Comparer.OrdinalIgnoreCase
+				            )
+				        )
+				in
+				    if List.Count(Matches) > 0 then Matches{0} else null),
+				    #"Merged Queries2" = Table.NestedJoin(#"Added Custom", {"Colony"}, Indore_Ward, {"Locality_Area"}, "Indore_Ward", JoinKind.LeftOuter),
+				    #"Expanded Indore_Ward" = Table.ExpandTableColumn(#"Merged Queries2", "Indore_Ward", {"Honda_Near_by"}, {"Honda_Near_by"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Expanded Indore_Ward",{{"Honda_Near_by", "Near_by_Centre"}})
+				in
+				    #"Renamed Columns2"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

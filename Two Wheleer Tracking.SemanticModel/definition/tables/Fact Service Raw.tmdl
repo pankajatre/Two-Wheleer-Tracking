@@ -1,0 +1,256 @@
+table 'Fact Service Raw'
+	lineageTag: 5b72138b-7028-4279-b82a-b5e41fec9772
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 11
+		incrementalGranularity: day
+		incrementalPeriods: 31
+		sourceExpression =
+			let
+			    Source = Sql.Databases("DESKTOP-M0KE14I\MSSQLSERVERSHYAM"),
+			    Honda = Source{[Name="Honda"]}[Data],
+			    dbo_Vw_Service_Master = Honda{[Schema="dbo",Item="Vw_Service_Master"]}[Data],
+			    #"Changed Type" = Table.TransformColumnTypes(dbo_Vw_Service_Master,{{"Job_Card_Closed_Date", type date}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [Job_Card_Created_Date] >= RangeStart and [Job_Card_Created_Date] < RangeEnd)
+			in
+			    #"Filtered Rows"
+
+	column Network_Code
+		dataType: string
+		lineageTag: a1ae1797-b886-4335-879b-53ed843349c0
+		summarizeBy: none
+		sourceColumn: Network_Code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service_Type
+		dataType: string
+		lineageTag: 2f974539-4c2f-4c92-b6bf-d5e316c57d02
+		summarizeBy: none
+		sourceColumn: Service_Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AMC_Service
+		dataType: string
+		lineageTag: e7bf9020-4852-4c78-a8ca-1aaee09097b4
+		summarizeBy: none
+		sourceColumn: AMC_Service
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Current_KMs
+		dataType: string
+		lineageTag: 9af62609-7d62-4605-9223-00b837fba057
+		summarizeBy: none
+		sourceColumn: Current_KMs
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Name
+		dataType: string
+		lineageTag: 2dbeaca1-ffb8-482a-937f-385a3fcb0f3a
+		summarizeBy: none
+		sourceColumn: Customer_Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Mobile
+		dataType: string
+		lineageTag: a330188b-032d-4516-b730-c0bd57be8a72
+		summarizeBy: none
+		sourceColumn: Customer_Mobile
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Job_Card_Status
+		dataType: string
+		lineageTag: 16e7dc8b-477d-4073-93b6-bdafb6239e7e
+		summarizeBy: none
+		sourceColumn: Job_Card_Status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Frame_Number
+		dataType: string
+		lineageTag: f930d848-fa65-48d2-a6b6-bc5400b0f4fa
+		summarizeBy: none
+		sourceColumn: Frame_Number
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Name
+		dataType: string
+		lineageTag: d7c91dc0-1d54-413a-b749-c4e592273531
+		summarizeBy: none
+		sourceColumn: Model_Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Registration_Number
+		dataType: string
+		lineageTag: 092cc842-0498-4c3f-ad07-289e1647512d
+		summarizeBy: none
+		sourceColumn: Registration_Number
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Job_Card_Closed_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 18a9c532-7a7b-45af-99b3-3e2a0087094d
+		summarizeBy: none
+		sourceColumn: Job_Card_Closed_Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Job_Card_Number
+		dataType: string
+		lineageTag: ca1fc0ce-4ef6-41f8-9723-7a3accc4fa51
+		summarizeBy: none
+		sourceColumn: Job_Card_Number
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Labour_Revenue
+		dataType: double
+		lineageTag: 14778b97-d20a-4e31-9d22-60c79d7a3996
+		summarizeBy: sum
+		sourceColumn: Labour_Revenue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Parts_Revenue
+		dataType: double
+		lineageTag: b38b4c87-df9e-4f9b-a0f3-736896509f8f
+		summarizeBy: sum
+		sourceColumn: Parts_Revenue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Lubes_Revenue
+		dataType: double
+		lineageTag: aad820c5-9b42-4bcb-9a60-0a5cfc3a3a94
+		summarizeBy: sum
+		sourceColumn: Lubes_Revenue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Accessories_Revenue
+		dataType: double
+		lineageTag: bec845d4-7963-4687-849b-b4f4450f2352
+		summarizeBy: sum
+		sourceColumn: Accessories_Revenue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_Job_Card_Revenue
+		dataType: double
+		lineageTag: 2d9fe5ae-1f4c-4e1b-9f0e-c03cb705935a
+		summarizeBy: sum
+		sourceColumn: Total_Job_Card_Revenue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Job_Card_Created_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8ee1ea40-1b94-4929-89fa-b5c9f9064c94
+		summarizeBy: none
+		sourceColumn: Job_Card_Created_Date
+
+		variation Variation
+			isDefault
+			relationship: 1912b1eb-8174-4704-ad13-e0671e3825b8
+			defaultHierarchy: LocalDateTable_824b82de-6aa6-4c5d-8592-692141ba3061.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Claimed_Labour_Amount
+		dataType: double
+		lineageTag: 64d19964-c126-4a68-8dd9-6cdc07ab71c8
+		summarizeBy: sum
+		sourceColumn: Claimed_Labour_Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Claimed_FSC_Labour_Amount
+		dataType: double
+		lineageTag: e97f13f1-f456-4c43-85a0-4de91d935c3b
+		summarizeBy: sum
+		sourceColumn: Claimed_FSC_Labour_Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Fact Service Raw' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-M0KE14I\MSSQLSERVERSHYAM"),
+				    Honda = Source{[Name="Honda"]}[Data],
+				    dbo_Vw_Service_Master = Honda{[Schema="dbo",Item="Vw_Service_Master"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(dbo_Vw_Service_Master,{{"Job_Card_Closed_Date", type date}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [Job_Card_Created_Date] >= RangeStart and [Job_Card_Created_Date] < RangeEnd)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
+

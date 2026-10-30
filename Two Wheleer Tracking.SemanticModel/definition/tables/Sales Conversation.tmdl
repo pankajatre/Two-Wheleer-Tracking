@@ -1,0 +1,69 @@
+table 'Sales Conversation'
+	lineageTag: 4b4d9fd2-3680-4663-91ea-14c9c35faf51
+
+	measure 'Running Total Enq vs Sale Con' = DIVIDE([Running Total Chassis Sale],'Enquiry Measures'[Running Total Enquiry])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8fd2721a-edc7-4ba7-bcd3-3396f5287916
+
+	measure 'YTD Total Enq vs Sale Con' = DIVIDE([YTD Chassis Sale],[YTD Enquiry])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a3e14338-78ff-4e68-a7be-afc41789bd87
+
+	measure 'MTD Total Enq vs Sale Con' = DIVIDE([MTD Chassis Sale],'Enquiry Measures'[MTD Enquiry])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 636548e1-316a-47a5-ace2-ad1a10e21189
+
+	measure 'LY Running Total Conversation' =
+			DIVIDE(
+			[LYTD Sales Running Total],[Last Year Enquiry Running Total])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 84f43c96-05b4-438d-930d-3709e5fed019
+
+	measure 'Running Total Conversation Growth YoY' = [Running Total Enq vs Sale Con] - [LY Running Total Conversation]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6d23ddd7-9846-413b-a616-c05eda9a56a9
+
+	measure 'LYTD Total Enq vs Sale Con' = DIVIDE([LYTD Chassis Sale],[LYTD Chassis Enquiry])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f6b84cf3-a76c-42b6-a48a-8e295a1cac80
+
+	measure 'YTD Total Conversation Growth'
+		lineageTag: 574303cf-3348-496f-aceb-559eccd2874c
+
+	measure 'Conversation Growth last year vs this year for ytd' = [YTD Total Enq vs Sale Con] - [LYTD Total Enq vs Sale Con]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8cbcad51-45f0-4fa5-b8f1-9ecf94242b4c
+
+	measure 'Last Month Convertion' = DIVIDE([LMTD Chassis Sale],[LMTD Enquiry])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4917e581-02ee-462b-8da3-5bd5cb7e8ad2
+
+	measure 'LMTD TLD Chassis Convertion' = ```
+			DIVIDE([LMTD TLD Chassis Sale],[LMTD TLD Enquiry])
+			
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7a1409fa-1995-4170-ada8-b9c7ad955958
+
+	measure 'Total Convertion' = DIVIDE([Total Chassis Sale],[Total Enquiry])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: af66384a-43d5-49a0-b225-d4dbd27ca3d1
+
+	measure 'LY MTD Total Enq vs Sale Con' = DIVIDE([LY MTD Chassis Sales],'Enquiry Measures'[LY MTD Chassis Enquiry])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4fadcf70-4b37-4200-a9dc-1e6f52dec004
+
+	partition 'Sales Conversation' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,118 @@
+table 'Sales Measure'
+	lineageTag: 72608407-a962-4c4a-9af4-10a640cb0944
+
+	measure 'Total Chassis Sale' = DISTINCTCOUNT('Fact Sales Org Input'[Frame])
+		formatString: 0
+		lineageTag: 9f2d2953-8b18-4770-9b80-360c6c68d32a
+
+	measure 'MTD Chassis Sale' =
+			
+			TOTALMTD([Total Chassis Sale],Dim_Date[Date])
+			--var maxdate = CALCULATE(MAX(Dim_Date[Date]),ALL(Dim_Date[Date]))
+			--Var MonthStartDate = EOMONTH(maxdate,-2)+1
+			--Var Monthenddate = EDATE(maxdate,-1)
+			
+			--RETURN
+			--CALCULATE( [Total Chassis Sale], DATESBETWEEN(Dim_Date[Date],MonthStartDate,Monthenddate))
+		formatString: 0
+		lineageTag: 82833903-798c-4c54-9dbc-b2bdde92a34f
+
+	measure 'LMTD Chassis Sale' = CALCULATE([MTD Chassis Sale],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: 8e534c3c-522b-4a08-a6c4-89d8878482be
+
+	measure 'Sales Growth MTD vs LMTD %' =
+			
+			DIVIDE(
+			    [MTD Chassis Sale] - [LMTD TLD Chassis Sale],
+			    [LMTD TLD Chassis Sale],
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a137242d-7bbf-44c4-8c7c-2818c310832c
+
+	measure 'Running Total Chassis Sale' = ```
+			
+			        CALCULATE
+			            (
+			                [Total Chassis Sale],ALL(Dim_Date),
+			                Dim_Date[Date] <=MAX(Dim_Date[Date])
+			            )
+			```
+		formatString: 0
+		lineageTag: 6206da23-7834-4bb5-8d05-47cce824d3e2
+
+	measure 'LMTD Running Total' = CALCULATE([Running Total Chassis Sale],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: 156bdf1d-93e7-490b-a18a-d2dc1747ffbe
+
+	measure 'LYTD Sales Running Total' = CALCULATE([Running Total Chassis Sale],DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: 781191ea-18e1-49e8-9ac6-0192cc94297b
+
+	measure 'Running total Sale Gwoth YoY' = DIVIDE([Running Total Chassis Sale],[LYTD Sales Running Total])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e2e81b2a-8e97-498a-a4f3-d50808dc9451
+
+	measure 'Delta Growth YTD vs LYTD' = 'Sales Measure'[Running total Sale Gwoth YoY] - CALCULATE('Sales Measure'[Running total Sale Gwoth YoY],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0f9cfaad-8f79-452f-9637-6277cdeeec63
+
+	measure 'Running Total SMPL Growth' = CALCULATE('Sales Measure'[Running total Sale Gwoth YoY],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4894924a-728a-4a34-949d-d96fc166da89
+
+	measure 'SMPL Sale' = CALCULATE([Total Chassis Sale],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: b53d6a60-1f07-4481-9060-30c3c776588c
+
+	measure 'Growth Total Sale' = DIVIDE([Total Chassis Sale],[SMPL Sale])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f3fb668f-df7d-4ce8-ab0f-9b3ca274b764
+
+	measure 'YTD Chassis Sale' = TOTALytd([Total Chassis Sale],Dim_Date[Date],"31/3")
+		formatString: 0
+		lineageTag: d3468a2b-e590-4944-9224-72cd8e2481c5
+
+	measure 'LYTD Chassis Sale' = CALCULATE([YTD Chassis Sale],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: d64be6e5-d9b2-4003-b170-e5c4f24b41de
+
+	measure 'YTD vs LYTD' = DIVIDE([YTD Chassis Sale],[LYTD Chassis Sale])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 23fd8186-bf73-478a-8216-c2123786ee39
+
+	measure 'LMTD TLD Chassis Sale' = ```
+			
+			
+			Var LstDAte  =  CALCULATE(MAX(Dim_Date[Date]),ALL(Dim_Date[Date]))
+			Var MonthStartDate = EOMONTH(LstDAte,-2) +1
+			Var MonthEndDate = EDATE(LstDAte,-1)
+			
+			RETURN
+			
+			CALCULATE( [Total Chassis Sale], DATESBETWEEN(Dim_Date[Date],MonthStartDate,MonthEndDate))
+			
+			```
+		formatString: 0
+		lineageTag: 8e1882d2-f3ce-4cd9-8c17-59baa991da42
+
+	measure 'LY MTD Chassis Sales' = CALCULATE([MTD Chassis Sale],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: 1035fa17-0685-473e-9966-52b1e14691a5
+
+	partition 'Sales Measure' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

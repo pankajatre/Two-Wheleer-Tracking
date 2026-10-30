@@ -1,0 +1,32 @@
+table 'Dim Service Type'
+	lineageTag: 68aae687-cca5-4b25-95bd-fe457c8bfa48
+
+	column Service_Type
+		dataType: string
+		lineageTag: ebce4740-9b00-4ffb-b3fa-c1de40bb7bdf
+		summarizeBy: none
+		sourceColumn: Service_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Custom
+		dataType: string
+		lineageTag: 2e49af39-1deb-49a8-99bc-28c85ceeaff3
+		summarizeBy: none
+		sourceColumn: Custom
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Service Type' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCnD0dFHSgVCxOtFKbkGurgoGRkAhEAtJyBhZyDczL78IWVtQakFiZpGCV34SpmGGyDodnZ09XVz9QpCV+Xr6+QcpBLkCBYKCkSXcXf1cgxx9sEkFuHjCubEA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Service_Type = _t, Custom = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Service_Type", type text}, {"Custom", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

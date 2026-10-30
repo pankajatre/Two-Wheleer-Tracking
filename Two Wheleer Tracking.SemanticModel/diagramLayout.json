@@ -1,0 +1,438 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 779.64467003502193
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 739.2983026169386,
+            "y": 740.046502181472
+          },
+          "nodeIndex": "Dim_Date",
+          "nodeLineageTag": "72e4163a-b328-4b0b-a998-e7b15516d1a2",
+          "size": {
+            "height": 319.00097631836138,
+            "width": 234
+          },
+          "zIndex": 24
+        },
+        {
+          "location": {
+            "x": 3080.2235802618766,
+            "y": 618.6213276148992
+          },
+          "nodeIndex": "06 Delta",
+          "nodeLineageTag": "174912a8-a110-497c-9a82-cb9e3537ecd5",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 3076.9750973551354,
+            "y": 176.44305266869196
+          },
+          "nodeIndex": "01 Base Measure",
+          "nodeLineageTag": "35437399-c27f-4841-808b-35eb2bcc71d7",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 2614.3537270097509,
+            "y": 1955.7230410320319
+          },
+          "nodeIndex": "02 Free Service",
+          "nodeLineageTag": "a399484f-7f7f-4f9a-81d6-218cc75aa46f",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 20
+        },
+        {
+          "location": {
+            "x": 3068.5384693030651,
+            "y": 322.66136669472326
+          },
+          "nodeIndex": "03 Paid Service",
+          "nodeLineageTag": "7afe6db1-7f24-4d56-816a-316e2a18451a",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 21
+        },
+        {
+          "location": {
+            "x": 3074.1951727233841,
+            "y": 470.64134715480759
+          },
+          "nodeIndex": "04 Time Inteligence",
+          "nodeLineageTag": "6c7b6d1d-54b1-4305-8764-c0618a28e826",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 22
+        },
+        {
+          "location": {
+            "x": 2602.1755204344468,
+            "y": 1519.6090156317405
+          },
+          "nodeIndex": "05 Growth",
+          "nodeLineageTag": "be2aacc8-00d4-42bb-bd80-64898df7456f",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 23
+        },
+        {
+          "location": {
+            "x": 365.0301055447236,
+            "y": 1629.1928627784466
+          },
+          "nodeIndex": "Dim Location",
+          "nodeLineageTag": "5a702219-2b71-4aa3-93c3-1541e9348d69",
+          "size": {
+            "height": 153.53088960188461,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 683.7471949390349,
+            "y": 1635.0701776310275
+          },
+          "nodeIndex": "Dim Model",
+          "nodeLineageTag": "ff3d2400-64d1-4728-8cbf-36f019ff7786",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 81.361501780007785,
+            "y": 834.41123576341215
+          },
+          "nodeIndex": "Dim Service Type",
+          "nodeLineageTag": "68aae687-cca5-4b25-95bd-fe457c8bfa48",
+          "size": {
+            "height": 147.27663140991888,
+            "width": 234
+          },
+          "zIndex": 32
+        },
+        {
+          "location": {
+            "x": 525.88214710511033,
+            "y": 1110.5877050494523
+          },
+          "nodeIndex": "Fact Service Raw",
+          "nodeLineageTag": "5b72138b-7028-4279-b82a-b5e41fec9772",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 266.49482868779796,
+            "y": 1101.9594299003559
+          },
+          "nodeIndex": "Fact Sales Org Input",
+          "nodeLineageTag": "caff0041-f30e-4efb-b306-de52eb6dcb40",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 1597.2170569132718,
+            "y": 1113.0778490794087
+          },
+          "nodeIndex": "Fact_AMC_EW_Master",
+          "nodeLineageTag": "a7146c0b-255c-4125-bf9c-4f5b31df7540",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 1095.5187457903346
+          },
+          "nodeIndex": "Fact_Honda_Enquiry",
+          "nodeLineageTag": "6a9f80ad-3e9f-426b-80c9-a90d6476669a",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 26
+        },
+        {
+          "location": {
+            "x": 3794.0224387966023,
+            "y": 0
+          },
+          "nodeIndex": "Sales Measure",
+          "nodeLineageTag": "72608407-a962-4c4a-9af4-10a640cb0944",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 1267.4527186095079,
+            "y": 1712.4932037638416
+          },
+          "nodeIndex": "Indore_Ward",
+          "nodeLineageTag": "d1474a36-81fb-4e4e-92ec-9b1e238df0cd",
+          "size": {
+            "height": 182.30829598735909,
+            "width": 234
+          },
+          "zIndex": 25
+        },
+        {
+          "location": {
+            "x": 2615.1304493000976,
+            "y": 1021.1646488555557
+          },
+          "nodeIndex": "Colony List",
+          "nodeLineageTag": "e7f0a6b6-ec42-4ae1-9113-ef19133c374b",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 27
+        },
+        {
+          "location": {
+            "x": 1438.381959737598,
+            "y": 883.66604991519716
+          },
+          "nodeIndex": "Sales Location",
+          "nodeLineageTag": "087775e2-8899-47fe-93f4-75078d7f5085",
+          "size": {
+            "height": 157.41586958757193,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 24.869485271673653,
+            "y": 1613.4394117531933
+          },
+          "nodeIndex": "Hypothication",
+          "nodeLineageTag": "a8a95017-68bb-438e-a358-cfbef2c6eb38",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 2083.1233810287576,
+            "y": 773.95130256933771
+          },
+          "nodeIndex": "Enquiry Measures",
+          "nodeLineageTag": "d033109d-022d-431c-991f-fdc480dfd566",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 1849.1078772951014,
+            "y": 420.86188895704981
+          },
+          "nodeIndex": "Sales Conversation",
+          "nodeLineageTag": "4b4d9fd2-3680-4663-91ea-14c9c35faf51",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1301.0768698277889,
+            "y": 136.24029021491151
+          },
+          "nodeIndex": "Service Convertion",
+          "nodeLineageTag": "9179306b-d3a8-400a-9149-7bfd986db296",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 4984.0065279906885,
+            "y": 0
+          },
+          "nodeIndex": "Vechele Age Month",
+          "nodeLineageTag": "8af47c1b-b25a-48ae-98e9-ad6d64614733",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 797.96879267969121,
+            "y": 1914.9712937345541
+          },
+          "nodeIndex": "Dim Chassis",
+          "nodeLineageTag": "814a44b4-e13e-488e-a97a-cf02e95e54b5",
+          "size": {
+            "height": 385.54872858477029,
+            "width": 234
+          },
+          "zIndex": 29
+        },
+        {
+          "location": {
+            "x": 5255.975520523376,
+            "y": 0
+          },
+          "nodeIndex": "Job Card",
+          "nodeLineageTag": "bc5d16e7-d4f2-4d77-8b20-1098a18cdb46",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 5119.9910242570331,
+            "y": 0
+          },
+          "nodeIndex": "AMC",
+          "nodeLineageTag": "a4bc3c83-d404-4137-9d69-e0c845c3b264",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 4630.1988695267173,
+            "y": 0
+          },
+          "nodeIndex": "EW+",
+          "nodeLineageTag": "29630d79-df92-4cf1-94fe-179c7939d0cd",
+          "size": {
+            "height": 524.5638145401665,
+            "width": 234
+          },
+          "zIndex": 31
+        },
+        {
+          "location": {
+            "x": 5527.9445130560634,
+            "y": 0
+          },
+          "nodeIndex": "Parts Revenue",
+          "nodeLineageTag": "4c5086f0-1c39-4d90-984b-1438338c302c",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 5663.9290093224081,
+            "y": 0
+          },
+          "nodeIndex": "Lubes Revenue",
+          "nodeLineageTag": "04d38bd5-5e65-46be-8e74-e9b8ba0fe069",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 30
+        },
+        {
+          "location": {
+            "x": 3140.5291444487298,
+            "y": 772.547509371092
+          },
+          "nodeIndex": "Labour Revenue",
+          "nodeLineageTag": "dab74772-706e-4317-980e-1099ca1746d4",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1188.2091550031334,
+            "y": 1188.2339874265519
+          },
+          "nodeIndex": "VW_Claims_Data_Indore_Master",
+          "nodeLineageTag": "e07261f9-551f-4937-9dea-2988a56f4f2a",
+          "size": {
+            "height": 437.71374519368487,
+            "width": 234
+          },
+          "zIndex": 33
+        },
+        {
+          "location": {
+            "x": 1059.9397699961337,
+            "y": 876.862413299609
+          },
+          "nodeIndex": "Model Code",
+          "nodeLineageTag": "2062ef30-bb4c-49ad-9e7c-2a88c15529d1",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 28
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 62.336089590424407,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

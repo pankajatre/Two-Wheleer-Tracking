@@ -1,0 +1,33 @@
+table 'Sales Location'
+	lineageTag: 087775e2-8899-47fe-93f4-75078d7f5085
+
+	column Assigned_To_DSE_Name
+		dataType: string
+		lineageTag: c84b3811-834d-4fa8-90dd-cf186c03cd2d
+		summarizeBy: none
+		sourceColumn: Assigned_To_DSE_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Location'
+		dataType: string
+		lineageTag: 392848d1-c2c7-4149-a176-ba649ee32e13
+		summarizeBy: none
+		sourceColumn: Sales Location
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Sales Location' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("dVRZbuswDLyKkO+gdxhHgilrM7QZfkXvf41H2UEiq+mfPSOSw/X7+wavrVig0wZ7u9+mCP+g28+9MUZn4WCr3vGR0oniR2ZFJhhmKHRohpH4BfLDEgcncWXmQaFIQtyZTPCbigc5UXHaQFjYjcW//T2oOYAV7A9SXV1KpVYYUVnyZhDdIFvqumeIf6gqdi5neElaeMyI4ovx2R84q0ok+O3hpxNHysGf0lnNNQZp5hIVrg7bDSkvOisvI4QLOcTUYg3Q8czCgLyYtLUhqmtsBwkvkvYziYhlLfkawoEUq373+mLruTJixg6zQY6GB5mirkgZ9ZdpWIRRmTakwTAQ95GCP9p+/nXJXIA/+bojHbV/9sQF7YU5q/uEVmwt82DbSF3VrZyR5cnz21jxNQQPx/GiUp2ryBXmZN8dfBN+YVeJE+1R5UTCg6Sqg/vIW8Pt5jl1EyF3Mbg5rRFz4On2v3aL2apUPBvZG5lmNCEGORp4LVzxs7L98/IqPH8/sarFEhLp0QHjH4Y5lrWF5FrHTn2ClFw3XnE1DFEC8S35SPC851ZU5BKrkrp3154dDe4tqHDRXLNoK5CPI9BJTtrF1nJQ6VwFOm/ZsHiJ78HySryLUiR2MfMydHqqXhj84/ZUPjxJzGXN6C08W0y8BvIzShe4KtOP8wkkajdBTMOMHuT9/qTfRq9T0ut8dZ6nXex8DOqnpWoHEG26UpDn7F2f/PwH", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Assigned_To_DSE_Name = _t, #"Sales Location" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Assigned_To_DSE_Name", type text}, {"Sales Location", type text}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"Assigned_To_DSE_Name", Order.Ascending}})
+				in
+				    #"Sorted Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

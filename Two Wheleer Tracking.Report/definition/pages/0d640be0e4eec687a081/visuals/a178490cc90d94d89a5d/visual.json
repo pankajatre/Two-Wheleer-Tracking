@@ -1,0 +1,453 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "a178490cc90d94d89a5d",
+  "position": {
+    "x": 7.12694877505568,
+    "y": 279.37639198218261,
+    "z": 0,
+    "height": 416.21380846325167,
+    "width": 1272.8730512249444,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Frame_Number"
+                }
+              },
+              "queryRef": "Dim Chassis.Frame_Number",
+              "nativeQueryRef": "Frame_Number"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Final Model"
+                }
+              },
+              "queryRef": "Dim Chassis.Final Model",
+              "nativeQueryRef": "Final Model",
+              "displayName": "Model"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Registration_Number"
+                }
+              },
+              "queryRef": "Dim Chassis.Registration_Number",
+              "nativeQueryRef": "Registration",
+              "displayName": "Registration"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Invoice_Date"
+                }
+              },
+              "queryRef": "Dim Chassis.Invoice_Date",
+              "nativeQueryRef": "Invoice_Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Last Service Date"
+                }
+              },
+              "queryRef": "Dim Chassis.Last Service Date",
+              "nativeQueryRef": "Last Service Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Last Service Type"
+                }
+              },
+              "queryRef": "Dim Chassis.Last Service Type",
+              "nativeQueryRef": "Last Service Type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "SERVICE STATUS"
+                }
+              },
+              "queryRef": "Dim Chassis.SERVICE STATUS",
+              "nativeQueryRef": "SERVICE STATUS"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Total Service Cnt"
+                }
+              },
+              "queryRef": "Sum(Dim Chassis.Total Service Cnt)",
+              "nativeQueryRef": "Total Service Cnt1"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Total Paid Cnt"
+                }
+              },
+              "queryRef": "Sum(Dim Chassis.Total Paid Cnt)",
+              "nativeQueryRef": "Total Paid Cnt",
+              "displayName": "Total Paid SR Cnt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "LAST ACTIVE"
+                }
+              },
+              "queryRef": "Sum(Dim Chassis.LAST ACTIVE)",
+              "nativeQueryRef": "Last Active Days",
+              "displayName": "Last Active Days"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Name Customer"
+                }
+              },
+              "queryRef": "Dim Chassis.Name Customer",
+              "nativeQueryRef": "Name Customer",
+              "displayName": "Customer Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Address"
+                }
+              },
+              "queryRef": "Dim Chassis.Address",
+              "nativeQueryRef": "Address"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Final Contact"
+                }
+              },
+              "queryRef": "Dim Chassis.Final Contact",
+              "nativeQueryRef": "Final Contact",
+              "displayName": "Contact"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Colony"
+                }
+              },
+              "queryRef": "Dim Chassis.Colony",
+              "nativeQueryRef": "Colony"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Chassis"
+                    }
+                  },
+                  "Property": "Near_by_Centre"
+                }
+              },
+              "queryRef": "Dim Chassis.Near_by_Centre",
+              "nativeQueryRef": "Near_by_Centre"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales Location"
+                    }
+                  },
+                  "Property": "Sales Location"
+                }
+              },
+              "queryRef": "Sales Location.Sales Location",
+              "nativeQueryRef": "Sales Location"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim Chassis"
+                  }
+                },
+                "Property": "Name Customer"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "outlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "gridVertical": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "gridHorizontal": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "outlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "15D"
+                }
+              }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "outlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "outlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "outlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BoldHeader'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

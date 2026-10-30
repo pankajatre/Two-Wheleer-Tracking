@@ -1,0 +1,286 @@
+table 'Fact Sales Org Input'
+	lineageTag: caff0041-f30e-4efb-b306-de52eb6dcb40
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 11
+		incrementalGranularity: day
+		incrementalPeriods: 3
+		sourceExpression =
+			let
+			    Source = Sql.Databases("DESKTOP-M0KE14I\MSSQLSERVERSHYAM"),
+			    Honda = Source{[Name="Honda"]}[Data],
+			    dbo_vw_Sales_Master = Honda{[Schema="dbo",Item="vw_Sales_Master"]}[Data],
+			    #"Changed Type" = Table.TransformColumnTypes(dbo_vw_Sales_Master,{{"Invoice_Date", type date}}),
+			    #"Trimmed Text" = Table.TransformColumns(#"Changed Type",{{"Hypothecation", Text.Trim, type text}}),
+			    #"Capitalized Each Word" = Table.TransformColumns(#"Trimmed Text",{{"Hypothecation", Text.Proper, type text}}),
+			    #"Duplicated Column" = Table.DuplicateColumn(#"Capitalized Each Word", "Mobile_Phone", "Mobile_Phone - Copy"),
+			    #"Added Custom" = Table.AddColumn(#"Duplicated Column", "Colony", each let
+			    AddressText = Text.Upper(Text.From([Address_Line_1])),
+			    Matches =
+			        List.Select(
+			            #"Colony List",
+			            each Text.Contains(
+			                AddressText,
+			                Text.Upper(Text.From(_)),
+			                Comparer.OrdinalIgnoreCase
+			            )
+			        )
+			in
+			    if List.Count(Matches) > 0 then Matches{0} else null),
+			    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"Invoice_Date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type1", each [Invoice_Date] >= RangeStart and [Invoice_Date] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
+	column Status
+		dataType: string
+		lineageTag: 57add629-4516-433d-b8ce-75ceee8d88ca
+		summarizeBy: none
+		sourceColumn: Status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Financier
+		dataType: string
+		lineageTag: ffeedb6c-4662-4b92-a8bf-6878932b4d77
+		summarizeBy: none
+		sourceColumn: Financier
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hypothecation
+		dataType: string
+		lineageTag: 1439f644-86e9-419b-bb5a-33066bb9e954
+		summarizeBy: none
+		sourceColumn: Hypothecation
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: dd1504a2-233e-4c04-8235-006a5bb68ec0
+		summarizeBy: none
+		sourceColumn: City
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Frame
+		dataType: string
+		lineageTag: 6def2af2-589d-4e5b-93dd-b57669a19bb8
+		summarizeBy: none
+		sourceColumn: Frame
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Invoice
+		dataType: string
+		lineageTag: c4ef312b-5a21-4ec3-89a9-053b3baf0aee
+		summarizeBy: none
+		sourceColumn: Invoice
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Permanent_Reg_No
+		dataType: string
+		lineageTag: 28356880-4d7b-4249-817a-cadcfac64084
+		summarizeBy: none
+		sourceColumn: Permanent_Reg_No
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Invoice_Balance_Amount
+		dataType: string
+		lineageTag: a899728d-9d1a-4f10-adcb-bf835f28736a
+		summarizeBy: none
+		sourceColumn: Invoice_Balance_Amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reference_No
+		dataType: string
+		lineageTag: 93ea359c-b558-4fd3-9fd6-12bc319472c5
+		summarizeBy: none
+		sourceColumn: Reference_No
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Billing_Network_Code
+		dataType: string
+		lineageTag: f9454334-d5a9-4688-80b8-cb695c872470
+		summarizeBy: none
+		sourceColumn: Billing_Network_Code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Invoice_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3d911fcc-ea2f-436b-98ec-a398392fb23f
+		summarizeBy: none
+		sourceColumn: Invoice_Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mobile_Phone
+		dataType: string
+		lineageTag: ab4a7364-8a54-44b4-bdab-3c1f9d6e2b4d
+		summarizeBy: none
+		sourceColumn: Mobile_Phone
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Address_Line_1
+		dataType: string
+		lineageTag: b2bd5e5d-f89c-4bc1-a881-0ef05773faa1
+		summarizeBy: none
+		sourceColumn: Address_Line_1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Category
+		dataType: string
+		lineageTag: 65b138fa-18be-4c59-8327-27318fa31a19
+		summarizeBy: none
+		sourceColumn: Model_Category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model_Name
+		dataType: string
+		lineageTag: 362a1c25-079e-4693-b407-7cde25948c41
+		summarizeBy: none
+		sourceColumn: Model_Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_First_Name
+		dataType: string
+		lineageTag: d536f58e-7203-4a79-8a9d-d2ab929860b3
+		summarizeBy: none
+		sourceColumn: Customer_First_Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Last_Name
+		dataType: string
+		lineageTag: 5b24c6f0-f550-49a6-8dc7-0f075149b28c
+		summarizeBy: none
+		sourceColumn: Customer_Last_Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Purchase_Type
+		dataType: string
+		lineageTag: 1565ea6a-60d7-401a-a99b-558e6526071f
+		summarizeBy: none
+		sourceColumn: Purchase_Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Assigned_To_DSE_Name
+		dataType: string
+		lineageTag: 1797c34b-423c-4f83-9402-b81b75c30277
+		summarizeBy: none
+		sourceColumn: Assigned_To_DSE_Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Network_Name1
+		dataType: string
+		lineageTag: 12bfa5e9-72c2-47e6-be6d-b34291440728
+		summarizeBy: none
+		sourceColumn: Network_Name1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mobile_Phone - Copy'
+		dataType: string
+		lineageTag: 2d56c665-5cfd-43d2-9965-df99361e702f
+		summarizeBy: none
+		sourceColumn: Mobile_Phone - Copy
+
+		annotation SummarizationSetBy = Automatic
+
+	column Colony
+		dataType: string
+		lineageTag: 5e4c5f1d-a527-4ddc-b8cd-1c5c67e23ced
+		summarizeBy: none
+		sourceColumn: Colony
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Sales Org Input' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-M0KE14I\MSSQLSERVERSHYAM"),
+				    Honda = Source{[Name="Honda"]}[Data],
+				    dbo_vw_Sales_Master = Honda{[Schema="dbo",Item="vw_Sales_Master"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(dbo_vw_Sales_Master,{{"Invoice_Date", type date}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type",{{"Hypothecation", Text.Trim, type text}}),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Trimmed Text",{{"Hypothecation", Text.Proper, type text}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Capitalized Each Word", "Mobile_Phone", "Mobile_Phone - Copy"),
+				    #"Added Custom" = Table.AddColumn(#"Duplicated Column", "Colony", each let
+				    AddressText = Text.Upper(Text.From([Address_Line_1])),
+				    Matches =
+				        List.Select(
+				            #"Colony List",
+				            each Text.Contains(
+				                AddressText,
+				                Text.Upper(Text.From(_)),
+				                Comparer.OrdinalIgnoreCase
+				            )
+				        )
+				in
+				    if List.Count(Matches) > 0 then Matches{0} else null),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"Invoice_Date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type1", each [Invoice_Date] >= RangeStart and [Invoice_Date] <= RangeEnd)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

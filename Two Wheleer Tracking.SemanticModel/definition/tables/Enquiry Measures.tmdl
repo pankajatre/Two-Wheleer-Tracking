@@ -1,0 +1,94 @@
+table 'Enquiry Measures'
+	lineageTag: d033109d-022d-431c-991f-fdc480dfd566
+
+	measure 'Total Enquiry' = DISTINCTCOUNT(Fact_Honda_Enquiry[Mobile_No])
+		formatString: 0
+		lineageTag: 3bf59790-876c-45ff-8209-f4fb9c717cbe
+
+	measure 'Running Total Enquiry' =
+			CALCULATE(
+			                                    [Total Enquiry],
+			                                    Dim_Date[Date] <= MAX(Dim_Date[Date])
+			                                )
+		formatString: 0
+		lineageTag: 935a2000-ec03-4472-a026-ca4036bbcd0c
+
+	measure 'YTD Enquiry' = TOTALYTD([Total Enquiry],Dim_Date[Date],"31/3")
+		formatString: 0
+		lineageTag: ca6ab5e1-ad5d-4340-b389-7f259f9cec52
+
+	measure 'MTD Enquiry' =
+			
+			TOTALMTD([Total Enquiry], Dim_Date[Date])
+		formatString: 0
+		lineageTag: 256e71fd-f827-427d-9f76-eb45e0de681d
+
+	measure 'Last Year Enquiry Running Total' = CALCULATE([Running Total Enquiry],DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: eefb1c44-210b-4d55-8a99-59ac2e93d1ad
+
+	measure 'Running total Enquiry Gwoth YoY' = DIVIDE([Running Total Enquiry],'Enquiry Measures'[Last Year Enquiry Running Total])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 73a4c2a3-bac8-4e0e-889b-88e3bc91c910
+
+	measure 'LYTD Chassis Enquiry' = CALCULATE([YTD Enquiry],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: cfe8d734-d36d-4113-9074-32a74444505e
+
+	measure 'Enq YTD vs LYTD' = DIVIDE([YTD Enquiry],[LYTD Chassis Enquiry])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3efc955e-cee2-45f5-b937-385563a22d35
+
+	measure 'LY MTD Chassis Enquiry' = CALCULATE([MTD Enquiry],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: ee25159a-4ddf-4ffd-930d-da4327f52fe1
+
+	measure 'LMTD Enquiry' = CALCULATE([MTD Enquiry],DATEADD(Dim_Date[Date],-1,MONTH))
+		formatString: 0
+		lineageTag: 5e114547-fc0d-40da-af8f-371751a0ec29
+
+	measure 'LMTD TLD Enquiry' = ```
+			
+			
+			
+			VAR CutoffDay =
+			    DAY(
+			        CALCULATE(
+			            MAX(Fact_Honda_Enquiry[Enquiry_Created_Date]),
+			            ALL(Dim_Date)
+			        )
+			    )
+			VAR LastDates =
+			    MAX(Dim_Date[Date])
+			RETURN
+			CALCULATE(
+			    [Total Enquiry],
+			    DATESBETWEEN(
+			        Dim_Date[Date],
+			        EOMONTH(LastDates,-2)+1,
+			        DATE(
+			            YEAR(EDATE(LastDates,-1)),
+			            MONTH(EDATE(LastDates,-1)),
+			            CutoffDay
+			        )
+			    )
+			)
+			
+			
+			```
+		formatString: 0
+		lineageTag: 3c56f537-1bc9-43b6-bbaa-ee2626429fce
+
+	partition 'Enquiry Measures' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

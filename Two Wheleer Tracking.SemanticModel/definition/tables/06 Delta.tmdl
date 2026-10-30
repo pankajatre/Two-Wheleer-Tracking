@@ -1,0 +1,30 @@
+table '06 Delta'
+	lineageTag: 174912a8-a110-497c-9a82-cb9e3537ecd5
+
+	measure 'SMPL Service Growth delta %' = [Total Service Conversation %] - CALCULATE([Total Service Conversation %],SAMEPERIODLASTYEAR(dim_date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 05557d56-2c77-4f7a-9db6-dc4694c85b4c
+
+		changedProperty = IsHidden
+
+	measure 'SMPL Vechicle Base Growth Delta %' = [Vechicle Growth YTDvsLYTD %] - CALCULATE([Vechicle Growth YTDvsLYTD %],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 11120056-05a8-4d76-afcc-b204cd57815c
+
+		changedProperty = IsHidden
+
+	partition '06 Delta' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

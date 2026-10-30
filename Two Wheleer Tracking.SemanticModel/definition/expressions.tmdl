@@ -1,0 +1,26 @@
+expression 'Old Sales Person' =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("jVT/jrMgEHyVTf+6L2n6DmMhQkUw/NAzzb3/a9wiVTlrky8xlO7MLssw8HxeYDsdqYcZ9YzL9dJ42LviCX8fsJ/r89Ko1OsOZGAmWM2gciXpFMkpLaxQmixaeLpxvLU8WB1lUOs/HjJVyR420l25pGAPXX0CcyIjOihqMaObIA6ZG6r/gq9M96BORjUhvOdlDPoALnlOsUbjjLDsaVWhCu8KDGBFKDiTheVwgJ2kLwnb/DUp/BmGIgfgq9rv4YXsnEVPvfNS1uQ9vHM9OhadGnh31OgcKkm8JM0QGBm4T4W//PJQGImUswJLnbQWTK9xoaQhl+8UfN3leziTA5Q2NCBK8x9qjey6QG0aIqrKb9FCtZh5j9aJv9wtrCo2/KCL3zjs50Mr+cssdhafBwUdnCjXZZVoZRh0UJYabUw5jbMyAwv+4OMN7MSqtR3m2palMugbxcqccDweo5S5Fdue1QgQgi1xrusZVJLydPH4Wds928KWFYnXH1I8+GoljnqUHQUWsgc1/gMroIePikVHTH6UQp/sYyl1vb6KfSIsLddr3JXm67cZuXL4lt1DZTs+oMOEgxAbqbxcJPR34Lu+P14bgXWQVniwnGZ3Uw0vx/RF8jbe6N8pJRFSdIRW2vtc3aONElJ2C3dav4Q/vw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Hiris Sales Person" = _t, Location = _t, Person = _t, #"DC, Tally row data" = _t, #"Location as per dc" = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Hiris Sales Person", type text}, {"Location", type text}, {"Person", type text}, {"DC, Tally row data", type text}, {"Location as per dc", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: 659030ca-652a-4aa0-8b6a-e84b99a06e81
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression RangeStart = #datetime(2015, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: cbc6d818-0446-44fa-ac62-6e7faf30aea1
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+expression RangeEnd = #datetime(2026, 12, 31, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 5233bda5-16b0-42b7-9275-30ed876b4cd3
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+

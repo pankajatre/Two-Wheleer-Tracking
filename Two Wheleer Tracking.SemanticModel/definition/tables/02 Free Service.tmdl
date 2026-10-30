@@ -1,0 +1,149 @@
+table '02 Free Service'
+	lineageTag: a399484f-7f7f-4f9a-81d6-218cc75aa46f
+
+	measure '1st Free Service' = ```
+			
+			CALCULATE(
+			   [Total Service],
+			   'Fact Service Raw'[Service_Type] = "Free 01",
+			    FILTER(
+			        ALL(Dim_Date),
+			        Dim_Date[Year] = SELECTEDVALUE(Dim_Date[Year]) &&
+			        Dim_Date[Date] <= DATE(SELECTEDVALUE('Dim_Date'[Year]), MONTH(TODAY()), DAY(TODAY()))
+			    )
+			)
+			
+			
+			
+			```
+		formatString: 0
+		lineageTag: d45fcdb5-e44a-42d2-b5ac-b80f11b8601c
+
+		changedProperty = IsHidden
+
+	measure '1st Free Service SMPL' = ```
+			
+			    CALCULATE([Total Service],
+			    'Fact Service Raw'[Service_Type] ="Free 01",
+			        FILTER
+			            (
+			            ALL(Dim_Date),
+			            Dim_Date[Year] = SELECTEDVALUE(Dim_Date[Year])-1 &&
+			            Dim_Date[Date]<= DATE(SELECTEDVALUE(Dim_Date[Year]) - 1,MONTH(TODAY()),DAY(TODAY()))
+			            )
+			            )
+			            
+			    
+			```
+		formatString: 0
+		lineageTag: bf5ff41c-039b-4639-ad0d-c10666439462
+
+		changedProperty = IsHidden
+
+	measure '2nd Free Service' =
+			
+			CALCULATE(
+			   [Total Service],
+			   'Fact Service Raw'[Service_Type] = "Free 02",
+			    FILTER(
+			        ALL(Dim_Date),
+			        Dim_Date[Year] = SELECTEDVALUE(Dim_Date[Year]) &&
+			        Dim_Date[Date] <= DATE(SELECTEDVALUE('Dim_Date'[Year]), MONTH(TODAY()), DAY(TODAY()))
+			    )
+			)
+		formatString: 0
+		lineageTag: f73cc185-10ac-4ba8-bb1e-e31c94b7c12b
+
+		changedProperty = IsHidden
+
+	measure '3rd Free Service' =
+			
+			CALCULATE(
+			   [Total Service],
+			   'Fact Service Raw'[Service_Type] = "Free 03",
+			    FILTER(
+			        ALL(Dim_Date),
+			        Dim_Date[Year] = SELECTEDVALUE(Dim_Date[Year]) &&
+			        Dim_Date[Date] <= DATE(SELECTEDVALUE('Dim_Date'[Year]), MONTH(TODAY()), DAY(TODAY()))
+			    )
+			)
+		formatString: 0
+		lineageTag: 1e8d51c9-bd65-481c-b57e-f3a0e4cb8aac
+
+		changedProperty = IsHidden
+
+	measure 'All Free Service' = CALCULATE([Total Service],'Fact Service Raw'[Service_Type] IN { "FREE 01","FREE 02","FREE 03"})
+		formatString: 0
+		lineageTag: d154ca67-e12f-4b00-9b6f-3babf18e0ee1
+
+		changedProperty = IsHidden
+
+	measure 'Free Service%' = DIVIDE([All Free Service],[Total Service])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3f8776f1-d817-4e1e-a9a6-11e9fb35db89
+
+		changedProperty = IsHidden
+
+	measure '2nd Free Service SMPL' = ```
+			
+			CALCULATE([Total Service],
+			    'Fact Service Raw'[Service_Type] ="Free 02",
+			        FILTER
+			            (ALL(Dim_Date),
+			            Dim_Date[Year] = SELECTEDVALUE(Dim_Date[Year])-1 &&
+			            Dim_Date[Date] <= DATE(SELECTEDVALUE(Dim_Date[Year])-1,MONTH(TODAY()),DAY(TODAY()))
+			            )
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: a0b191f4-25bb-4929-8d65-3cd78b546631
+
+		changedProperty = IsHidden
+
+	measure '3rd Free Service SMPL' =
+			
+			CALCULATE([Total Service],
+			    'Fact Service Raw'[Service_Type] ="Free 03",
+			        FILTER
+			            (ALL(Dim_Date),
+			            Dim_Date[Year] = SELECTEDVALUE(Dim_Date[Year])-1 &&
+			            Dim_Date[Date] <= DATE(SELECTEDVALUE(Dim_Date[Year])-1,MONTH(TODAY()),DAY(TODAY()))
+			            )
+			    )
+		formatString: 0
+		lineageTag: aaae98cc-f643-49eb-8c39-bf61353ed42f
+
+		changedProperty = IsHidden
+
+	measure 'SMPL All Free Service' = CALCULATE([All Free Service],SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: 0
+		lineageTag: 787cec12-03f7-4d77-8aab-e9beb727e66c
+
+	measure 'YTD Free Service' = TOTALYTD('02 Free Service'[All Free Service],Dim_Date[Date],"31/3")
+		formatString: 0
+		lineageTag: 9a038a8f-8767-49ce-b6bc-59ee3f2fac6c
+
+	measure 'LYTD Free Service' = CALCULATE([YTD Free Service], DATEADD(Dim_Date[Date],-1,YEAR))
+		formatString: 0
+		lineageTag: eb1fed15-e931-4807-aada-3bdfeefdcc74
+
+	measure 'YTD Free Service Growth' = DIVIDE([YTD Free Service],[LYTD Free Service])-1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e002ae75-02ad-4f54-87a2-35d7d1540c3c
+
+	partition '02 Free Service' = m
+		mode: import
+		queryGroup: Measure
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
